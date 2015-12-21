@@ -1,0 +1,187 @@
+html,
+body {
+  height: 100%;
+  margin: 0px;
+  font-family: Merriweather, 'Helvetica Neue', Arial, sans-serif;
+  z-index: 1;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+}
+.navbar-default {
+  background-color: #fff;
+  font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+  transition: all 0.5s ease;
+}
+.navbar-default .navbar-nav>li>a {
+  color: rgba(128,0,128,0.7);
+  transition: 400ms;
+}
+.navbar-default .navbar-nav>li>a:hover,
+.navbar-default .navbar-nav>li>a:focus,
+.navbar-default .navbar-nav>li>a:active {
+  color: #800080;
+}
+.navbar-default .navbar-header .navbar-brand {
+  font-weight: 700;
+  color: rgba(128,0,128,0.7);
+  transition: 400ms;
+  text-transform: uppercase;
+  font-size: 20px;
+}
+.navbar-default .navbar-header .navbar-brand:hover,
+.navbar-default .navbar-header .navbar-brand:focus,
+.navbar-default .navbar-header .navbar-brand:active {
+  color: #800080;
+}
+@media (min-width: 768px) {
+  .navbar-default {
+    background-color: transparent;
+  }
+  .navbar-default .navbar-nav>li>a {
+    color: rgba(255,255,255,0.7);
+    transition: 400ms;
+  }
+  .navbar-default .navbar-nav>li>a:hover,
+  .navbar-default .navbar-nav>li>a:focus,
+  .navbar-default .navbar-nav>li>a:active {
+    color: #fff;
+  }
+  .navbar-default .navbar-header .navbar-brand {
+    font-weight: 700;
+    color: rgba(255,255,255,0.7);
+    transition: 400ms;
+    text-transform: uppercase;
+    font-size: 20px;
+  }
+  .navbar-default .navbar-header .navbar-brand:hover,
+  .navbar-default .navbar-header .navbar-brand:focus,
+  .navbar-default .navbar-header .navbar-brand:active {
+    color: #fff;
+  }
+  .navbar-default.affix {
+    background-color: #fff;
+  }
+  .navbar-default.affix .navbar-nav>li>a {
+    color: rgba(128,0,128,0.7);
+    transition: 400ms;
+  }
+  .navbar-default.affix .navbar-nav>li>a:hover,
+  .navbar-default.affix .navbar-nav>li>a:focus,
+  .navbar-default.affix .navbar-nav>li>a:active {
+    color: #800080;
+  }
+  .navbar-default.affix .navbar-header .navbar-brand {
+    color: rgba(128,0,128,0.7);
+  }
+  .navbar-default.affix .navbar-header .navbar-brand:hover,
+  .navbar-default.affix .navbar-header .navbar-brand:focus,
+  .navbar-default.affix .navbar-header .navbar-brand:active {
+    color: #800080;
+  }
+}
+header {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background-image: url("../images/header.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  overflow: hidden;
+}
+header .header-content {
+  position: absolute;
+  top: 50%;
+  text-align: center;
+  width: 100%;
+  margin-top: -65px;
+}
+header .header-content h1 {
+  color: #fff;
+  font-weight: 700;
+  font-size: 65px;
+}
+header .header-content h1 span {
+  background: rgba(0,0,0,0.4);
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 1000px;
+  padding: 0px 18px;
+}
+header .header-content h2 {
+  color: #fff;
+  font-size: 30px;
+  letter-spacing: 2px;
+}
+@media (max-width: 768px) {
+  header {
+    height: 90%;
+    background-attachment: local;
+  }
+}
+section {
+  padding: 100px 0;
+}
+#about {
+  background-color: rgba(225,190,231,0.5);
+}
+#about h2 {
+  font-size: 40px;
+  text-align: center;
+}
+#about hr {
+  max-width: 50px;
+  border-width: 3px;
+  border-color: #800080;
+}
+#download {
+  background-color: #000;
+  color: #fff;
+}
+footer {
+  background-color: #4b0082;
+  color: #fff;
+  font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+  overflow: hidden;
+  position: relative;
+  padding-bottom: 16%;
+  z-index: -9999;
+}
+footer .footer-content {
+  z-index: -9999;
+  position: fixed;
+  bottom: 0;
+}
+footer .information {
+  display: block;
+}
+footer .copyright {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-size: 10px;
+}
+::-moz-selection {
+  color: #fff;
+  text-shadow: none;
+  background: rgba(0,0,0,0.4);
+}
+::selection {
+  color: #fff;
+  text-shadow: none;
+  background: rgba(0,0,0,0.4);
+}
+img::selection {
+  color: #fff;
+  background: transparent;
+}
+img::-moz-selection {
+  color: #fff;
+  background: transparent;
+}
+

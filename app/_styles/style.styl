@@ -1,0 +1,276 @@
+@require 'variables'
+
+html, body
+  height 100%
+  margin 0px
+  font-family font-merriweather
+  z-index 1
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6
+  font-family font-open-sans
+
+//Navigation
+
+.navbar-default
+  //Purple Theme
+  background-color white
+  font-family font-open-sans
+  transition all 0.5s ease
+
+  .navbar-nav>li>a
+    color rgba(purple, 0.7)
+    transition 400ms
+
+    &:hover,
+    &:focus,
+    &:active
+      color purple
+
+  .navbar-header .navbar-brand
+    font-weight 700
+    color rgba(purple, 0.7)
+    transition 400ms
+    text-transform uppercase
+    font-size 20px
+
+    &:hover,
+    &:focus,
+    &:active
+      color purple
+
+  @media (min-width: 768px)
+    //Transparent theme
+    background-color transparent
+
+    .navbar-nav>li>a
+      color light-white
+      transition 400ms
+
+      &:hover,
+      &:focus,
+      &:active
+        color white
+
+    .navbar-header .navbar-brand
+      font-weight 700
+      color light-white
+      transition 400ms
+      text-transform uppercase
+      font-size 20px
+
+      &:hover,
+      &:focus,
+      &:active
+        color white
+
+    &.affix
+      background-color white
+
+      .navbar-nav>li>a
+        color rgba(purple, 0.7)
+        transition 400ms
+
+        &:hover,
+        &:focus,
+        &:active
+          color purple
+
+      .navbar-header .navbar-brand
+        color rgba(purple, 0.7)
+
+        &:hover,
+        &:focus,
+        &:active
+          color purple
+
+
+//   .navbar-toggle
+//     // color purple
+//     border 0px solid transparent
+
+//     .icon-bar
+//       background-color purple
+
+//   .btn
+//     background-color transparent
+//     border 1px solid transparent
+//     color purple
+//     transition 400ms
+
+//     &:hover
+//       color purple
+
+//     &:active
+//       color purple
+//       border 1px solid purple
+
+//     &:focus
+//       color purple
+//       border 1px solid purple
+
+    // .navbar-header .navbar-brand
+    //   color light-white
+    //   transition 400ms
+
+//       &:hover,
+//       &:focus,
+//       &:active
+//         color white
+
+//     .btn
+//       color light-white
+
+//       &:hover
+//         color white
+
+//       &:active
+//         color white
+//         border 1px solid white
+
+//       &:focus
+//         color white
+//         border 1px solid white
+
+//     &.affix
+//       background-color white
+
+//       .navbar-header .navbar-brand
+//         color rgba(purple, 0.7)
+
+//         &:hover,
+//         &:focus,
+//         &:active
+//           color purple
+
+//       .btn
+//         color rgba(purple, 0.7)
+
+//         &:hover
+//           color purple
+
+//         &:active
+//           color purple
+//           border 1px solid purple
+
+//         &:focus
+//           color purple
+//           border 1px solid purple
+
+
+
+//Header
+header
+  position relative
+
+  height 100%
+  width 100%
+  background-image url(../images/header.jpg)
+  background-repeat no-repeat
+  background-attachment fixed
+  background-size cover
+  overflow hidden
+
+  .header-content
+    position absolute
+    top 50%
+    text-align center
+    width 100%
+    margin-top - header-font-size
+
+    h1
+      color white
+      font-weight 700
+      font-size header-font-size
+      span
+        background rgba(0,0,0,.4)
+        margin-right auto
+        margin-left auto
+        max-width 1000px
+        padding 0px 18px
+
+    h2
+      color white
+      font-size 30px
+      letter-spacing 2px
+
+  @media (max-width: 768px)
+    height: 90%
+    background-attachment local
+
+//Sections
+section
+  padding 100px 0
+
+//About
+#about
+  background-color background-about
+
+  h2
+    font-size 40px
+    text-align center
+
+
+  hr
+    max-width 50px
+    border-width 3px
+    border-color purple
+
+
+//Download
+#download
+  background-color black
+  color white
+
+
+footer
+  background-color background-footer
+  color white
+  font-family font-open-sans
+  //Parallex effect
+  overflow hidden
+  position relative
+  padding-bottom 16%
+  // min-height 240px
+  z-index -9999
+
+
+  .footer-content
+    //Parallex effect
+    z-index -9999
+    position fixed
+    bottom 0
+
+  .information
+    display block
+
+  .copyright
+    padding-top 20px
+    padding-bottom 20px
+    font-size 10px
+
+
+// Extras
+// -- Highlight Color Customization
+::-moz-selection
+    color white
+    text-shadow none
+    background rgba(0,0,0,.4)
+
+::selection
+    color white
+    text-shadow none
+    background rgba(0,0,0,.4)
+
+
+img::selection
+    color white
+    background transparent
+
+img::-moz-selection
+    color white
+    background transparent

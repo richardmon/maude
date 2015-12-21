@@ -1,0 +1,111 @@
+doctype html
+head
+  meta(name='viewport', content='width=device-width, initial-scale=1.0')
+  // build:css css/style.min.css
+  link( rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.min.css" )
+  link(rel="stylesheet" href="styles/style.css")
+  link(href="http://fonts.googleapis.com/css?family=Merriweather&#8217" rel="stylesheet" type="text/css")
+  link(href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" type="text/css")
+  link(rel="stylesheet" href="components/components-font-awesome/css/font-awesome.min.css")
+  //endbuild
+
+  // build:js js/script.min.js
+  script( src="components/jquery/dist/jquery.min.js" )
+  script( src="components/bootstrap/dist/js/bootstrap.min.js" )
+  script( src="scripts/functions.js" )
+  //endbuild
+
+body
+
+  // nav.navbar.navbar-default.navbar-fixed-top
+  //   .container-fluid
+  //     .navbar-header
+  //       a.navbar-brand(href="#") APP
+  //       //When collapsed
+  //       // button(class="navbar-toggle" data-toggle="collapse" data-target=".navbar-elements-collapse")
+  //       //   span(class="icon-bar")
+  //       //   span(class="icon-bar")
+  //       //   span(class="icon-bar")
+
+  //       button.navbar-right.navbar-btn.btn.default-btn(data-toggle="modal" data-target="#signin-modal") Sign In
+  //       // .btn-toolbar.navbar-right
+  //     // .navbar-elements-collapse.navbar-collapse.collapse
+
+  nav.navbar.navbar-default.navbar-fixed-top
+    .container-fluid
+      .navbar-header
+        a.navbar-brand(href="#") App
+      ul.navbar-nav.nav.navbar-right
+        li
+          a(href="#") Sign In
+        li
+          a(href="#") Sign Up
+  include ./views/Signin.jade
+
+  header
+    .header-content
+      h1
+        span MESSAGE
+      h2
+        span kicker
+
+  section#about
+    .container
+      .row
+        .col-lg-8.col-lg-offset-2.text-center
+          h2 What we do
+          hr
+          div.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+  section#content
+    .container
+      .row
+        .col-md-7
+          h2 content section
+          p.lead.
+            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+            tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
+            vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
+            no sea takimata sanctus est Lorem ipsum dolor sit amet.
+        .col-md-5
+          img(style="height:500px; width:500px;").img-responsive.center-block
+
+      .row
+
+  section#download
+    .container
+      .row
+        .col-lg-8.col-lg-offset-2.text-center
+          h2 Download
+      .row
+        .col-sm-6.text-center.
+          Download Android
+        .col-sm-6.text-center.
+          Download IOS
+
+  footer
+    .container.footer-content
+      .row
+        .col-sm-4.text-center Email
+          span.information email@domain.com
+        .col-sm-4.text-center Phone
+          span.information 123-456-891
+        .col-sm-4.text-center Address
+          span.information 1ddr3s
+
+      hr
+
+      .row
+        .col-lg-8.col-lg-offset-2.text-center
+          h3 Follow us
+      .row
+        .col-xs-2.col-xs-offset-3.text-center
+          i.fa.fa-2x.fa-facebook-official
+        .col-xs-2.text-center
+          i.fa.fa-2x.fa-twitter
+        .col-xs-2.text-center
+          i.fa.fa-2x.fa-google-plus-square
+
+      .row
+        .col-sm-4.col-sm-offset-4.text-center.copyright Richard Montoya ©
