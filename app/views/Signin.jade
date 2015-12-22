@@ -1,8 +1,39 @@
-// modal sign ip
+// modal sign in
 .modal.fade#signin-modal(tab-index="-1" role="dialog")
-  .modal-dialog
+  .modal-dialog.modal-sm
     .modal-content
-      .modal-header
-        h4.modal-title.text-center#modalLabel Titulo
-      .modal-body
+      .modal-body.signin-body
         .row
+          .col-xs-12.text-center
+            button.btn.facebook-signin-btn
+              i.fa.fa-facebook-official
+              span Facebook
+        .row
+          .col-xs-12.text-center.top-buffer
+            button.btn.twitter-signin-btn
+              i.fa.fa-twitter-square
+              span Twitter
+
+        .signin-or-separator
+          span or
+          hr
+
+        .row
+          .col-sm-12
+            form
+              .form-group
+                label.control-label(for="email-signin") Email address
+                input.form-control#email-signin(type="text")
+              .form-group
+                label.control-label(for="password-signin") Password
+                input.form-control#password-signin(type="password")
+        .row
+          .col-xs-12.text-center
+            button.btn.signin-btn Sign In
+
+        hr
+
+        .row
+          .col-sm-12
+            | Don’t have an account? 
+            a(href="#" data-toggle="modal" data-target="#signup-modal") Sign up
