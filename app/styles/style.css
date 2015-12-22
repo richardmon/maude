@@ -39,6 +39,19 @@ h6 {
 .navbar-default .navbar-header .navbar-brand:active {
   color: #800080;
 }
+.navbar-default .navbar-toggle {
+  border: 0px solid #fff;
+  color: rgba(128,0,128,0.7);
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus,
+.navbar-default .navbar-toggle:active {
+  color: #800080;
+}
+.navbar-default .navbar-toggle:hover {
+  background: #fff;
+  text-decoration: none;
+}
 @media (min-width: 768px) {
   .navbar-default {
     background-color: transparent;
