@@ -1,20 +1,20 @@
 // modal sign in
-.modal.fade#signin-modal(tab-index="-1" role="dialog")
+.modal#signin-modal(tab-index="-1" role="dialog")
   .modal-dialog.modal-sm
     .modal-content
       .modal-body.signin-body
         .row
           .col-xs-12.text-center
-            button.btn.facebook-signin-btn
+            button.btn.facebook-modal-btn
               i.fa.fa-facebook-official
               span Facebook
         .row
           .col-xs-12.text-center.top-buffer
-            button.btn.twitter-signin-btn
+            button.btn.twitter-modal-btn
               i.fa.fa-twitter-square
               span Twitter
 
-        .signin-or-separator
+        .modal-or-separator
           span or
           hr
 
@@ -27,11 +27,11 @@
               .form-group
                 label.control-label(for="password-signin") Password
                 input.form-control#password-signin(type="password")
-              button.btn.signin-btn Sign In
+              button.btn.modal-btn Sign In
 
         hr
 
         .row
           .col-sm-12
             | Don’t have an account? 
-            a(href="#" data-toggle="modal" data-target="#signup-modal") Sign up
+            a(href="#" data-dismiss="modal" data-toggle="modal" data-target="#signup-modal") Sign up
