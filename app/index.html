@@ -20,26 +20,26 @@
       <div class="navbar-header"><a href="#" class="navbar-brand">App</a><a href="#download" class="navbar-toggle">Download</a></div>
       <ul class="collapse navbar-collapse navbar-nav nav navbar-right">
         <li><a href="#" data-toggle="modal" data-target="#signin-modal">Sign In</a></li>
-        <li><a href="#">Sign Up</a></li>
+        <li><a href="#" data-toggle="modal" data-target="#signup-modal">Sign Up</a></li>
       </ul>
     </div>
   </nav>
   <!-- modal sign in-->
-  <div id="signin-modal" tab-index="-1" role="dialog" class="modal fade">
+  <div id="signin-modal" tab-index="-1" role="dialog" class="modal">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-body signin-body">
           <div class="row">
             <div class="col-xs-12 text-center">
-              <button class="btn facebook-signin-btn"><i class="fa fa-facebook-official"></i><span>Facebook</span></button>
+              <button class="btn facebook-modal-btn"><i class="fa fa-facebook-official"></i><span>Facebook</span></button>
             </div>
           </div>
           <div class="row">
             <div class="col-xs-12 text-center top-buffer">
-              <button class="btn twitter-signin-btn"><i class="fa fa-twitter-square"></i><span>Twitter</span></button>
+              <button class="btn twitter-modal-btn"><i class="fa fa-twitter-square"></i><span>Twitter</span></button>
             </div>
           </div>
-          <div class="signin-or-separator"><span>or</span>
+          <div class="modal-or-separator"><span>or</span>
             <hr>
           </div>
           <div class="row">
@@ -53,17 +53,44 @@
                   <label for="password-signin" class="control-label">Password</label>
                   <input id="password-signin" type="password" class="form-control">
                 </div>
+                <button class="btn modal-btn">Sign In</button>
               </form>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12 text-center">
-              <button class="btn signin-btn">Sign In</button>
             </div>
           </div>
           <hr>
           <div class="row">
-            <div class="col-sm-12">Don’t have an account? <a href="#" data-toggle="modal" data-target="#signup-modal">Sign up</a></div>
+            <div class="col-sm-12">Don’t have an account? <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#signup-modal">Sign up</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- modal sign up-->
+  <div id="signup-modal" tab-index="-1" role="dialog" class="modal">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body signup-body">
+          <div class="row">
+            <div class="col-xs-12 text-center">
+              <button class="btn facebook-modal-btn"><i class="fa fa-facebook-official"></i><span>Facebook</span></button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 text-center top-buffer">
+              <button class="btn twitter-modal-btn"><i class="fa fa-twitter-square"></i><span>Twitter</span></button>
+            </div>
+          </div>
+          <div class="modal-or-separator"><span>or</span>
+            <hr>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <button class="btn modal-btn"><i class="fa fa-envelope-o"></i><span>Sign up with Email</span></button>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-12">Alredy have an account?  <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#signin-modal">Sign in</a></div>
           </div>
         </div>
       </div>
@@ -106,7 +133,7 @@
       <div class="row"></div>
     </div>
   </section>
-  <section id="download">
+  <section id="download" class="hidden">
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-lg-offset-2 text-center">
@@ -146,50 +173,3 @@
     </div>
   </footer>
 </body>
-
-
-<!-- modal sign in-->
-<div id="signin-modal" tab-index="-1" role="dialog" class="modal fade">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-body signin-body">
-        <div class="row">
-          <div class="col-xs-12 text-center">
-            <button class="btn facebook-signin-btn"><i class="fa fa-facebook-official"></i><span>Facebook</span></button>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-12 text-center top-buffer">
-            <button class="btn twitter-signin-btn"><i class="fa fa-twitter-square"></i><span>Twitter</span></button>
-          </div>
-        </div>
-        <div class="signin-or-separator"><span>or</span>
-          <hr/>
-        </div>
-        <div class="row">
-          <div class="col-sm-12">
-            <form>
-              <div class="form-group">
-                <label for="email-signin" class="control-label">Email address</label>
-                <input id="email-signin" type="text" class="form-control"/>
-              </div>
-              <div class="form-group">
-                <label for="password-signin" class="control-label">Password</label>
-                <input id="password-signin" type="password" class="form-control"/>
-              </div>
-            </form>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-12 text-center">
-            <button class="btn signin-btn">Sign In</button>
-          </div>
-        </div>
-        <hr/>
-        <div class="row">
-          <div class="col-sm-12">Don’t have an account? <a href="#" data-toggle="modal" data-target="#signup-modal">Sign up</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>

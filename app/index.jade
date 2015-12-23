@@ -26,9 +26,10 @@ body
         li
           a(href="#" data-toggle="modal" data-target="#signin-modal") Sign In
         li
-          a(href="#") Sign Up
+          a(href="#" data-toggle="modal" data-target="#signup-modal") Sign Up
 
   include ./views/Signin.jade
+  include ./views/signup.jade
 
   header
     .header-content
@@ -61,7 +62,7 @@ body
 
       .row
 
-  section#download
+  section#download.hidden
     .container
       .row
         .col-lg-8.col-lg-offset-2.text-center

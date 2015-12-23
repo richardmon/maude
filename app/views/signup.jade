@@ -1,0 +1,32 @@
+// modal sign up
+.modal#signup-modal(tab-index="-1" role="dialog")
+  .modal-dialog.modal-sm
+    .modal-content
+      .modal-body.signup-body
+        .row
+          .col-xs-12.text-center
+            button.btn.facebook-modal-btn
+              i.fa.fa-facebook-official
+              span Facebook
+        .row
+          .col-xs-12.text-center.top-buffer
+            button.btn.twitter-modal-btn
+              i.fa.fa-twitter-square
+              span Twitter
+
+        .modal-or-separator
+          span or
+          hr
+
+        .row
+          .col-sm-12
+            button.btn.modal-btn
+              i.fa.fa-envelope-o
+              span Sign up with Email
+
+        hr
+
+        .row
+          .col-sm-12
+            | Alredy have an account?  
+            a(href="#" data-dismiss="modal" data-toggle="modal" data-target="#signin-modal") Sign in

@@ -8,7 +8,7 @@ module.exports = function(grunt){
 	  pretty: true,
 	},
 	files: {
-	  "app/index.html": ["app/**/**.jade"],
+	  "app/index.html": ["app/index.jade"],
 	}
       }
     },

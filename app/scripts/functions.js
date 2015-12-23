@@ -34,4 +34,5 @@
   }
   $(window).ready(footerCentered);
   $(window).resize(footerCentered);
+
 })();
