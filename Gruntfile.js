@@ -8,18 +8,18 @@ module.exports = function(grunt){
 	  pretty: true,
 	},
 	files: {
-	  "app/index.html": ["app/index.jade"],
+	  "client/index.html": ["client/index.jade"],
 	}
       }
     },
     //Look for changes
     watch:{
       jade:{
-	files: ['app/**/**.jade'],
+	files: ['client/**/**.jade'],
 	tasks: ['jade']
       },
       stylus:{
-        files: ['app/_styles/*.styl'],
+        files: ['client/_styles/*.styl'],
         tasks: ['stylus']
       }
     },
@@ -30,7 +30,7 @@ module.exports = function(grunt){
           compress: false
         },
         files: {
-          'app/styles/style.css' : 'app/_styles/*.styl'
+          'client/styles/style.css' : 'client/_styles/*.styl'
         }
       }
     },
@@ -39,7 +39,7 @@ module.exports = function(grunt){
       server: {
 	options: {
 	  livereload: true,
-	  base: 'app/',
+	  base: 'client/',
 	  port: 8000
 	}
       }
@@ -52,7 +52,7 @@ module.exports = function(grunt){
       },
       dist: {
         files: {
-          'app/styles/style.css': 'app/styles/style.css'
+          'client/styles/style.css': 'client/styles/style.css'
         }
       }
     },
@@ -61,14 +61,14 @@ module.exports = function(grunt){
     //   javascript: {
 	  // dest: 'dist/js/script.js',
 	  // src: [
-	    // 'app/scripts/**/*.js',
-	    // 'app/components/**/*.min.js'
+	    // 'client/scripts/**/*.js',
+	    // 'client/components/**/*.min.js'
 	    // ]
     //   },
     //   css:{
 	// dest: 'dist/css/style.css',
-	// src: ['app/style/**/*.css',
-	      // 'app/components/**/*.min.css']
+	// src: ['client/style/**/*.css',
+	      // 'client/components/**/*.min.css']
     //   }
     // },
     // //Minimize javascripts

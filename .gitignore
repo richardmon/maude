@@ -2,5 +2,5 @@
 **.swo
 dist/
 node_modules/
-app/components/
+client/components/
 
