@@ -1,5 +1,8 @@
 module.exports = function(grunt){
 
+  require('load-grunt-tasks')(grunt);
+  require('time-grunt')(grunt);
+
   grunt.initConfig({
     //Jade compilation
     jade: {
@@ -56,62 +59,29 @@ module.exports = function(grunt){
         }
       }
     },
-    // //Concat Files
-    // concat: {
-    //   javascript: {
-	  // dest: 'dist/js/script.js',
-	  // src: [
-	    // 'client/scripts/**/*.js',
-	    // 'client/components/**/*.min.js'
-	    // ]
-    //   },
-    //   css:{
-	// dest: 'dist/css/style.css',
-	// src: ['client/style/**/*.css',
-	      // 'client/components/**/*.min.css']
-    //   }
-    // },
-    // //Minimize javascripts
-    // uglify: {
-    //   generated: {
-	// files: [
-	  // {
-	    // dest: 'dist/js/script.min.js',
-	    // src: [ 'dist/js/script.js' ]
-	  // }
-	// ]
-    //   }
-    // },
-    // //Minified css
-    // cssmin: {
-    //   my_target: {
-	  // src: 'dist/css/style.css',
-	  // dest: 'dist/css/style.min.css'
-    //   }
-    // },
-    // useminPrepare: {
-    //   html: 'dist/index.html'
-    // },
-    // usemin:{
-    //   html:['dist/index.html']
-    // }
+    copy: {
+      dist:{
+        files:[
+          {expand: true, cwd: 'client/', src: 'index.html', dest: 'dist/', filter: 'isFile'},
+          {expand: true, cwd: 'client/', src: 'images/**', dest:'dist/', filter: 'isFile'},
+          {expand: true, cwd: 'client/components/components-font-awesome/', src: 'fonts/**', dest:'dist/', filter: 'isFile'}
+        ]
+      }
+    },
+    useminPrepare: {
+      html: 'client/index.html',
+      options: {
+        dest : 'dist/'
+      }
+    },
+    usemin:{
+      html:['client/index.html'],
+    }
   });
-
-  //Load
-  grunt.loadNpmTasks('grunt-contrib-jade');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-connect');
-  grunt.loadNpmTasks('grunt-contrib-stylus');
-  grunt.loadNpmTasks('grunt-postcss');
-  // grunt.loadNpmTasks('grunt-contrib-concat');
-  // grunt.loadNpmTasks('grunt-contrib-uglify');
-  // grunt.loadNpmTasks('grunt-css');
-  // grunt.loadNpmTasks('grunt-usemin');
 
 
   //Tasks
-  grunt.registerTask('build', 'Convert Jade templates into html templates', ['jade']);
   grunt.registerTask('default', ['stylus', 'postcss', 'jade', 'connect:server', 'watch']);
-  // grunt.registerTask('default', ['jade', 'concat', 'uglify', 'cssmin', 'useminPrepare', 'usemin', 'connect:server','watch']);
+  grunt.registerTask('build', [ 'jade', 'stylus', 'postcss', 'useminPrepare', 'concat', 'uglify', 'cssmin', 'usemin', 'copy']);
 
 }

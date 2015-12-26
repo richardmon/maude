@@ -1,6 +1,7 @@
 **.swp
 **.swo
 dist/
+.tmp/
 node_modules/
 client/components/
 

@@ -1,19 +1,19 @@
 doctype html
 head
   meta(name='viewport', content='width=device-width, initial-scale=1.0')
-  // build:css css/style.min.css
-  link( rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.min.css" )
-  link(rel="stylesheet" href="styles/style.css")
+
+
   link(href="http://fonts.googleapis.com/css?family=Merriweather&#8217" rel="stylesheet" type="text/css")
   link(href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" type="text/css")
+  // build:css css/vendor.css
+  link( rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.min.css" )
   link(rel="stylesheet" href="components/components-font-awesome/css/font-awesome.min.css")
   //endbuild
 
-  // build:js js/script.min.js
-  script( src="components/jquery/dist/jquery.min.js" )
-  script( src="components/bootstrap/dist/js/bootstrap.min.js" )
-  script( src="scripts/functions.js" )
+  // build:css css/style.css
+  link(rel="stylesheet" href="styles/style.css")
   //endbuild
+
 
 body
 
@@ -98,3 +98,12 @@ body
 
       .row
         .col-sm-4.col-sm-offset-4.text-center.copyright Richard Montoya ©
+
+// build:js js/vendor.js
+script( src="components/jquery/dist/jquery.min.js" )
+script( src="components/bootstrap/dist/js/bootstrap.min.js" )
+//endbuild
+
+//build:js js/script.js
+script( src="scripts/functions.js" )
+//endbuild
