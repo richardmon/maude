@@ -12,7 +12,7 @@ module.exports = function(app){
   app.post('/auth/login', session.login);
   app.delete('/auth/logout', session.logout);
 
-  app.get('/*', function(req, res) {
+  app.get('/*', function(req, res){
     if(req.user) {
       res.cookie('user', JSON.stringify(req.user.user_info));
     }

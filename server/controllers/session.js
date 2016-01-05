@@ -24,7 +24,7 @@ module.exports = function(app) {
     },
 
     /**
-     * Email exist
+     * logout user
      */
     logout : function(req, res){
       if(!req.user){
