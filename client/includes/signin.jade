@@ -1,5 +1,5 @@
 // modal sign in
-.modal#signin-modal(tab-index="-1" role="dialog")
+.modal#signin-modal(tab-index="-1" role="dialog" ng-controller="LoginCtrl as loginCtrl")
   .modal-dialog.modal-sm
     .modal-content
       .modal-body.signin-body
@@ -19,15 +19,24 @@
           hr
 
         .row
-          .col-sm-12
-            form
-              .form-group
+          .col-sm-12.text-center.top-buffer
+            .alert-danger(ng-show="loginCtrl.errors")
+              .space-for-alert
+                div(ng-repeat="error in loginCtrl.errors")
+                  | {{error.message}}
+            form(novalidate name="signinForm" ng-submit="loginCtrl.login(signinForm.$valid)")
+              .form-group(ng-class="{'has-error': signinForm.email.$invalid && (!signinForm.email.$pristine || signinForm.$submitted)}")
                 label.control-label(for="email-signin") Email address
-                input.form-control#email-signin(type="text")
-              .form-group
+                input.form-control#email-signin(type="email" name="email" ng-model="user.email" ng-required="true" ng-model-options="{updateOn: 'blur'}")
+                p.help-block(ng-show="signinForm.email.$error.required && (!signinForm.email.$pristine || signinForm.$submitted)") Enter your Email
+                p.help-block(ng-show="signinForm.email.$error.email && !signinForm.email.$pristine") Invalid Email
+
+              .form-group(ng-class="{'has-error': signinForm.password.$invalid && signinForm.$submitted}")
                 label.control-label(for="password-signin") Password
-                input.form-control#password-signin(type="password")
-              button.btn.modal-btn Sign In
+                input.form-control#password-signin(type="password" name="password" ng-model="user.password" ng-required="true" ng-model-options="{updateOn: 'blur'}")
+                p.help-block(ng-show="signinForm.password.$invalid && signinForm.$submitted") Enter your password
+
+              button.btn.modal-btn(type="submit") Sign In
 
         hr
 

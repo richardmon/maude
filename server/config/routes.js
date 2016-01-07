@@ -9,8 +9,8 @@ module.exports = function(app){
 
   //Session
   var session = app.controllers.Session;
-  app.post('/auth/login', session.login);
-  app.delete('/auth/logout', session.logout);
+  app.post('/auth/session', session.login);
+  app.delete('/auth/session', session.logout);
 
   app.get('/*', function(req, res){
     if(req.user) {

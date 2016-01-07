@@ -4,7 +4,6 @@
 var express = require('express');
 var app = express();
 var passport = require('passport');
-var config = require('./server/config');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser')
 var methodOverride = require('method-override');
