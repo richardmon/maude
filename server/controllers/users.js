@@ -7,7 +7,8 @@ module.exports = function(app) {
    * Create user
    **/
     create : function(req, res, next){
-      var newUser = new User(req.body);
+      var newUser = new User();
+      newUser.local = req.body;
       newUser.provider = 'local';
 
       newUser.save(function(err){
@@ -26,7 +27,7 @@ module.exports = function(app) {
      */
     exist: function(req, res, next){
       var email = req.params.email;
-      User.findOne({email: email}, function(err, usr){
+      User.findOne({'local.email': email}, function(err, usr){
         if(err)
           return next(new Error("Faild to load user %s", email));
 

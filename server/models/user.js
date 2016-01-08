@@ -7,17 +7,19 @@ var crypto = require('crypto')
 
 var User = new Schema({
   picture: String,
-  name: {
-    type: String,
-    required: true
+  local: {
+    email: {
+      type: String,
+      unique: true,
+      required: true
+    },
+    password: String,
+    salt: String,
+    name: {
+      type: String,
+      required: true
+    },
   },
-  email: {
-    type: String,
-    unique: true,
-    required: true
-  },
-  password: String,
-  salt: String,
   provider: String
 });
 
@@ -25,24 +27,16 @@ var User = new Schema({
  *Virtuals
  **/
 
-// User.virtual('_password')
-//   .set(function(_password){
-//     this._passwd = _password;
-//     this.salt = this.makeSalt();
-//     this.password = this.encryptPassword(_password);
-//   });
-
-User.path('password')
+User.path('local.password')
   .set(function(_password){
-    this._passwd = _password;
-    this.salt = this.makeSalt();
+    this.local.salt = this.makeSalt();
     return this.encryptPassword(_password);
   });
 
 
 User.virtual('user_info')
 .get(function(){
-  return {'_id': this._id, 'name': this.name, 'email': this.email };
+  return {'_id': this._id, 'name': this[this.provider].name, 'email': this[this.provider].email };
 });
 
 /**
@@ -53,13 +47,13 @@ var notNull = function(value){
   return value && value.length;
 }
 
-User.path('email').validate(function (email) {
+User.path('local.email').validate(function (email) {
   var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
   return emailRegex.test(email);
 }, 'The given email is invalid.');
 
-User.path('email').validate(function(value, respond) {
-  mongoose.models["User"].findOne({email: value}, function(err, user) {
+User.path('local.email').validate(function(value, respond) {
+  mongoose.models["User"].findOne({'local.email': value}, function(err, user) {
     if(err) throw err;
     if(user) return respond(false);
     respond(true);
@@ -70,12 +64,12 @@ User.path('email').validate(function(value, respond) {
  * Methods
  **/
 User.methods.validPassword = function(passwd){
-  return this.encryptPassword(passwd) === this.password;
+  return this.encryptPassword(passwd) === this.local.password;
 };
 
 User.methods.encryptPassword = function(passwd){
-  if(!passwd || !this.salt) return '';
-  var salt = new Buffer(this.salt, 'base64');
+  if(!passwd || !this.local.salt) return '';
+  var salt = new Buffer(this.local.salt, 'base64');
   return crypto.pbkdf2Sync(passwd, salt, 1000, 64).toString('base64');
 }
 
@@ -91,7 +85,7 @@ User.pre('save', function(next) {
     return next();
   }
 
-  if (notNull(this.password)) {
+  if (notNull(this[this.provider].password)) {
     next();
   }
   next(new Error('Invalid password'));
