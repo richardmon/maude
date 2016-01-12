@@ -4,9 +4,9 @@ angular.module('maude')
 .controller('LoginCtrl', function($location, $scope, Auth){
   var vm = this;
 
-  vm.login = function(valid){
+  vm.loginLocal = function(valid){
     if(!valid) return;
-    Auth.login('local', {
+    Auth.loginLocal({
       email: $scope.user.email,
       password: $scope.user.password
     }).then(function(user){
@@ -22,4 +22,8 @@ angular.module('maude')
       });
     });
   };
+
+  vm.authWithFacebook = function(){
+    Auth.authenticateFacebook();
+  }
 });

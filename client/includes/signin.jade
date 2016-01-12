@@ -5,7 +5,7 @@
       .modal-body.signin-body
         .row
           .col-xs-12.text-center
-            button.btn.facebook-modal-btn
+            button.btn.facebook-modal-btn(ng-click="loginCtrl.authWithFacebook()")
               i.fa.fa-facebook-official
               span Facebook
         .row
@@ -24,7 +24,7 @@
               .space-for-alert
                 div(ng-repeat="error in loginCtrl.errors")
                   | {{error.message}}
-            form(novalidate name="signinForm" ng-submit="loginCtrl.login(signinForm.$valid)")
+            form(novalidate name="signinForm" ng-submit="loginCtrl.loginLocal(signinForm.$valid)")
               .form-group(ng-class="{'has-error': signinForm.email.$invalid && (!signinForm.email.$pristine || signinForm.$submitted)}")
                 label.control-label(for="email-signin") Email address
                 input.form-control#email-signin(type="email" name="email" ng-model="user.email" ng-required="true" ng-model-options="{updateOn: 'blur'}")

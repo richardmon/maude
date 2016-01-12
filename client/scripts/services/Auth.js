@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('maude')
-.factory('Auth', function($location, $rootScope, $q, User, Session){
+.factory('Auth', function($rootScope, $q, User, Session, Config, $window){
   return {
     createUser: function CreateUser(userInfo){
       var deferred = $q.defer();
@@ -15,10 +15,9 @@ angular.module('maude')
       return deferred.promise;
     },
 
-    login: function LoginUser(provider, user){
+    loginLocal: function LoginLocalUser(user){
       var deferred = $q.defer();
       Session.save({
-        // provider : provider,
         email: user.email,
         password: user.password,
       }, function(user){
@@ -29,5 +28,19 @@ angular.module('maude')
       });
       return deferred.promise;
     },
+
+    authenticateFacebook : function (){
+      FB.getLoginStatus(function(response){
+        if(response.status == 'connected'){
+          $window.location.href = Config.facebook.callbackUrl;
+        }
+        else{
+          FB.login(function(response){
+            console.log(response);
+            $window.location.href = Config.facebook.callbackUrl;
+          },{scope: 'email'});
+        }
+      })
+    }
   }
 })
