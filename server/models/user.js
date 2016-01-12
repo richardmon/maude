@@ -8,17 +8,17 @@ var crypto = require('crypto')
 var User = new Schema({
   picture: String,
   local: {
-    email: {
-      type: String,
-      unique: true,
-      required: true
-    },
+    email: String,
     password: String,
     salt: String,
-    name: {
-      type: String,
-      required: true
-    },
+    name: String,
+  },
+
+  facebook: {
+    id: String,
+    token: String,
+    name: String,
+    email: String,
   },
   provider: String
 });
@@ -60,6 +60,13 @@ User.path('local.email').validate(function(value, respond) {
   });
 }, 'The given email address is already in use.');
 
+User.path('facebook.id').validate(function(id, respond) {
+  mongoose.models["User"].findOne({'facebook.id': id}, function(err, user) {
+    if(err) throw err;
+    if(user) return respond(false);
+    respond(true);
+  });
+}, 'The facebook ID is already in use.');
 /**
  * Methods
  **/
@@ -85,10 +92,13 @@ User.pre('save', function(next) {
     return next();
   }
 
-  if (notNull(this[this.provider].password)) {
-    next();
+  if(this.provider === 'local'){
+    if (notNull(this.local.password)) {
+      next();
+    }
+    next(new Error('Invalid password'));
   }
-  next(new Error('Invalid password'));
+  next();
 });
 
 

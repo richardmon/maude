@@ -8,7 +8,10 @@ module.exports = function(app) {
    **/
     create : function(req, res, next){
       var newUser = new User();
-      newUser.local = req.body;
+      newUser.local.email = req.body.email;
+      newUser.local.password = req.body.password;
+      newUser.local.name = req.body.name;
+
       newUser.provider = 'local';
 
       newUser.save(function(err){
