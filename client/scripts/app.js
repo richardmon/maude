@@ -13,3 +13,9 @@ angular.module('maude', ['ngResource'])
     });
   };
 })
+
+.run(function(Auth, $rootScope){
+  Auth.currentUser().then(function(user){
+    $rootScope.user = user;
+  })
+};

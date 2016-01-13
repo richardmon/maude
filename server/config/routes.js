@@ -10,6 +10,7 @@ module.exports = function(app){
 
   //Session
   var session = app.controllers.Session;
+  app.get('/auth/session', isLoggeIn, session.session)
   app.post('/auth/session', session.login);
   app.delete('/auth/session', session.logout);
 
@@ -34,5 +35,5 @@ function isLoggeIn(req, res, next){
   if(req.isAuthenticated()){
     return next();
   }
-  res.send("err");
+  res.send(401);
 }

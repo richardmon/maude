@@ -41,6 +41,10 @@ angular.module('maude')
           },{scope: 'email'});
         }
       })
+    },
+
+    currentUser: function(){
+      return Session.get().$promise;
     }
   }
 })

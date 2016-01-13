@@ -33,5 +33,13 @@ module.exports = function(app) {
       req.logout();
       return res.send(200);
     },
+
+    /**
+     * Returns user information
+     */
+    session: function(req, res){
+      if(req.user)
+      return res.json(req.user.user_info);
+    }
   }
 }
