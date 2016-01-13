@@ -25,4 +25,8 @@ angular.module('maude')
       });
     });
   };
+
+  vm.authWithFacebook = function(){
+    Auth.authenticateFacebook();
+  };
 })
