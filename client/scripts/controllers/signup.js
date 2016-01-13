@@ -7,9 +7,9 @@ angular.module('maude')
   vm.register = function(valid){
     if(!valid) return;
     Auth.createUser({
-      name: $scope.user.name,
-      email: $scope.user.email,
-      password: $scope.user.password,
+      name: $scope.signup.name,
+      email: $scope.signup.email,
+      password: $scope.signup.password,
     }).then(function(user){
         //Hide de modal window using jquery
         angular.element('#signup-local-modal').modal('hide');

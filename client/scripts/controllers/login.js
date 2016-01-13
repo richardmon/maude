@@ -7,8 +7,8 @@ angular.module('maude')
   vm.loginLocal = function(valid){
     if(!valid) return;
     Auth.loginLocal({
-      email: $scope.user.email,
-      password: $scope.user.password
+      email: $scope.siginin.email,
+      password: $scope.siginin.password
     }).then(function(user){
       $location.path('/');
       //Hide de modal window using jquery

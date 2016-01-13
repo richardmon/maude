@@ -18,4 +18,4 @@ angular.module('maude', ['ngResource'])
   Auth.currentUser().then(function(user){
     $rootScope.user = user;
   })
-};
+});
