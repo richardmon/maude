@@ -59,6 +59,16 @@ module.exports = function(grunt){
         }
       }
     },
+    ngAnnotate: {
+      options: {
+          singleQuotes: true,
+      },
+      angularCode:{
+        files: {
+          '.tmp/concat/js/script.js' : ['.tmp/concat/js/script.js']
+        },
+      },
+    },
     copy: {
       dist:{
         files:[
@@ -82,6 +92,6 @@ module.exports = function(grunt){
 
   //Tasks
   grunt.registerTask('default', ['stylus', 'postcss', 'jade', 'connect:server', 'watch']);
-  grunt.registerTask('build', [ 'jade', 'stylus', 'postcss', 'useminPrepare', 'concat', 'uglify', 'cssmin', 'usemin', 'copy']);
+  grunt.registerTask('build', [ 'jade', 'stylus', 'postcss', 'useminPrepare', 'concat', 'ngAnnotate', 'uglify', 'cssmin', 'usemin', 'copy']);
 
 }
