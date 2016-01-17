@@ -45,6 +45,12 @@ angular.module('maude')
 
     currentUser: function(){
       return Session.get().$promise;
+    },
+
+    logout: function(){
+      Session.remove(function(){
+        $rootScope.user = null;
+      });
     }
   }
 })

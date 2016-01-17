@@ -1,77 +1,78 @@
 // modal sign up
-.modal#signup-modal(tab-index="-1" role="dialog" ng-controller="SignupController as signupCtrl")
-  .modal-dialog.modal-sm
-    .modal-content
-      .modal-body.signup-body
-        .row
-          .col-xs-12.text-center
-            button.btn.facebook-modal-btn(ng-click="signupCtrl.authWithFacebook()")
-              i.fa.fa-facebook-official
-              span Facebook
-        .row
-          .col-xs-12.text-center.top-buffer
-            button.btn.twitter-modal-btn
-              i.fa.fa-twitter-square
-              span Twitter
+div(ng-controller="SignupController as signupCtrl")
+  .modal#signup-modal(tab-index="-1" role="dialog")
+    .modal-dialog.modal-sm
+      .modal-content
+        .modal-body.signup-body
+          .row
+            .col-xs-12.text-center
+              button.btn.facebook-modal-btn(ng-click="signupCtrl.authWithFacebook()")
+                i.fa.fa-facebook-official
+                span Facebook
+          .row
+            .col-xs-12.text-center.top-buffer
+              button.btn.twitter-modal-btn
+                i.fa.fa-twitter-square
+                span Twitter
 
-        .modal-or-separator
-          span or
+          .modal-or-separator
+            span or
+            hr
+
+          .row
+            .col-sm-12
+              button.btn.modal-btn(href="#" data-dismiss="modal" data-toggle="modal" data-target="#signup-local-modal")
+                i.fa.fa-envelope-o
+                span Sign up with Email
+
           hr
 
-        .row
-          .col-sm-12
-            button.btn.modal-btn(href="#" data-dismiss="modal" data-toggle="modal" data-target="#signup-local-modal")
-              i.fa.fa-envelope-o
-              span Sign up with Email
+          .row
+            .col-sm-12
+              | Alredy have an account? 
+              a(href="#" data-dismiss="modal" data-toggle="modal" data-target="#signin-modal") Sign in
 
-        hr
+  //Sign up local
+  .modal#signup-local-modal(tab-index="-1" role="dialog")
+    .modal-dialog.modal-sm
+      .modal-content
+        .modal-body.signup-body
+          .row
+            .col-xs-12
+              | Sign up with 
+              a(href="#")  Facebook
+              |  or 
+              a(href="#") Twitter
+          .modal-or-separator
+            span or
+            hr
+          .row
+            .col-xs-12.text-center.top-buffer
+              .alert-danger(ng-show="signupCtrl.errors")
+                .space-for-alert
+                  div(ng-repeat="error in signupCtrl.errors")
+                    | {{error.message}}
 
-        .row
-          .col-sm-12
-            | Alredy have an account? 
-            a(href="#" data-dismiss="modal" data-toggle="modal" data-target="#signin-modal") Sign in
+              form#signup-form(novalidate name="signupForm" ng-submit="signupCtrl.register(signupForm.$valid)")
+                .form-group(ng-class="{'has-error': signupForm.name.$invalid && (!signupForm.name.$pristine || signupForm.$submitted)}")
+                  label.control-label(for="name-signup") Name
+                  input.form-control#name-signup(type="text" ng-model="signup.name" name="name" ng-required="true" ng-model-options="{updateOn: 'blur'}" autofocus)
+                  p.help-block(ng-show="signupForm.name.$invalid && (!signupForm.name.$pristine || signupForm.$submitted)") Your name is required
 
-//Sign up local
-.modal#signup-local-modal(tab-index="-1" role="dialog")
-  .modal-dialog.modal-sm
-    .modal-content
-      .modal-body.signup-body
-        .row
-          .col-xs-12
-            | Sign up with 
-            a(href="#")  Facebook
-            |  or 
-            a(href="#") Twitter
-        .modal-or-separator
-          span or
+                .form-group(ng-class="{'has-error': signupForm.email.$invalid && (!signupForm.email.$pristine || signupForm.$submitted)}")
+                  label.control-label(for="email-signup") Email address
+                  input.form-control#email-signup(type="email" name="email" ng-model="signup.email" ng-required="true" ng-model-options="{updateOn: 'blur'}")
+                  p.help-block(ng-show="signupForm.email.$error.required && (!signupForm.email.$pristine || signupForm.$submitted)") Your email is required
+                  p.help-block(ng-show="signupForm.email.$error.email && (!signupForm.email.$pristine || signupForm.$submitted)") Enter a valid email
+
+                .form-group(ng-class="{'has-error': signupForm.password.$invalid && (!signupForm.password.$pristine || signupForm.$submitted)}")
+                  label.control-label(for="password-signup") Password
+                  input.form-control#password-signup(type="password" name="password" ng-model="signup.password" ng-required="true" ng-model-options="{updateOn: 'blur'}")
+                  p.help-block(ng-show="signupForm.password.$invalid && (!signupForm.password.$pristine || signupForm.$submitted)") A password is requierd
+                button.btn.modal-btn(type="submit") Sign Up
           hr
-        .row
-          .col-xs-12.text-center.top-buffer
-            .alert-danger(ng-show="signupCtrl.errors")
-              .space-for-alert
-                div(ng-repeat="error in signupCtrl.errors")
-                  | {{error.message}}
 
-            form#signup-form(novalidate name="signupForm" ng-submit="signupCtrl.register(signupForm.$valid)")
-              .form-group(ng-class="{'has-error': signupForm.name.$invalid && (!signupForm.name.$pristine || signupForm.$submitted)}")
-                label.control-label(for="name-signup") Name
-                input.form-control#name-signup(type="text" ng-model="signup.name" name="name" ng-required="true" ng-model-options="{updateOn: 'blur'}" autofocus)
-                p.help-block(ng-show="signupForm.name.$invalid && (!signupForm.name.$pristine || signupForm.$submitted)") Your name is required
-
-              .form-group(ng-class="{'has-error': signupForm.email.$invalid && (!signupForm.email.$pristine || signupForm.$submitted)}")
-                label.control-label(for="email-signup") Email address
-                input.form-control#email-signup(type="email" name="email" ng-model="signup.email" ng-required="true" ng-model-options="{updateOn: 'blur'}")
-                p.help-block(ng-show="signupForm.email.$error.required && (!signupForm.email.$pristine || signupForm.$submitted)") Your email is required
-                p.help-block(ng-show="signupForm.email.$error.email && (!signupForm.email.$pristine || signupForm.$submitted)") Enter a valid email
-
-              .form-group(ng-class="{'has-error': signupForm.password.$invalid && (!signupForm.password.$pristine || signupForm.$submitted)}")
-                label.control-label(for="password-signup") Password
-                input.form-control#password-signup(type="password" name="password" ng-model="signup.password" ng-required="true" ng-model-options="{updateOn: 'blur'}")
-                p.help-block(ng-show="signupForm.password.$invalid && (!signupForm.password.$pristine || signupForm.$submitted)") A password is requierd
-              button.btn.modal-btn(type="submit") Sign Up
-        hr
-
-        .row
-          .col-sm-12
-            | Alredy have an account?  
-            a(href="#" data-dismiss="modal" data-toggle="modal" data-target="#signin-modal") Sign in
+          .row
+            .col-sm-12
+              | Alredy have an account?  
+              a(href="#" data-dismiss="modal" data-toggle="modal" data-target="#signin-modal") Sign in
