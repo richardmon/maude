@@ -10,6 +10,8 @@ var methodOverride = require('method-override');
 var path = require('path');
 var errorHandler = require('errorhandler')
 var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
+var config = require('./server/config');
 
 
 
@@ -48,7 +50,11 @@ app.use(methodOverride());
 
 //session
 app.use(session({
-  secret : 'MAUDE'
+  secret : 'MAUDE',
+  store: new MongoStore({
+    url: config.db,
+    collection: 'sessions'
+  })
 }));
 
 // use passport session

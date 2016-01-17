@@ -31,7 +31,7 @@ module.exports = function(app) {
         return res.status(400).json({message: "Not logged in"});
       }
       req.logout();
-      return res.send(200);
+      return res.sendStatus(200);
     },
 
     /**
