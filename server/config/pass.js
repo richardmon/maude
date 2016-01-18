@@ -21,7 +21,7 @@ module.exports = function(app){
   });
 
 
-  // Use local strategy
+  // Local Strategy
   passport.use(new LocalStrategy({
       usernameField: 'email',
       passwordField: 'password'
@@ -50,7 +50,7 @@ module.exports = function(app){
     }
   ));
 
-  //Facebook startegy
+  // Facebook Startegy
   passport.use(new FacebookStrategy({
     clientID: auth.facebookAuth.clientID,
     clientSecret: auth.facebookAuth.clientSecret,
@@ -84,6 +84,7 @@ module.exports = function(app){
   }
   ));
 
+  // Twitter Strategy
   passport.use(new TwitterStrategy({
     consumerKey: auth.twitterAuth.consumerKey,
     consumerSecret: auth.twitterAuth.consumerSecret,
