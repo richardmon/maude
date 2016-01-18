@@ -22,6 +22,14 @@ module.exports = function(app){
         failureRedirect : '/'
       }));
 
+  //Twitter
+  app.get('/auth/twitter', passport.authenticate('twitter'));
+  app.get('/auth/twitter/callback',
+      passport.authenticate('twitter', {
+        successRedirect : '/',
+        failureRedirect : '/'
+      }));
+
   app.get('/*', function(req, res){
     if(req.user) {
       res.cookie('user', JSON.stringify(req.user.user_info));

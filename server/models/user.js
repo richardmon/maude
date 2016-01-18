@@ -20,6 +20,12 @@ var User = new Schema({
     name: String,
     email: String,
   },
+
+  twitter: {
+    id: String,
+    token: String,
+    name: String,
+  },
   provider: String
 });
 
@@ -67,6 +73,15 @@ User.path('facebook.id').validate(function(id, respond) {
     respond(true);
   });
 }, 'The facebook ID is already in use.');
+
+User.path('twitter.id').validate(function(id, respond) {
+  mongoose.models["User"].findOne({'twitter.id': id}, function(err, user) {
+    if(err) throw err;
+    if(user) return respond(false);
+    respond(true);
+  });
+}, 'The twitter ID is already in use.');
+
 /**
  * Methods
  **/
