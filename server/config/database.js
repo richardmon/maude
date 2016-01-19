@@ -8,10 +8,9 @@ exports.mongoose = mongoose;
 var mongoOptions = {db: {safe : true}};
 
 exports.db = mongoose.connect(config.db, mongoOptions, function(err, res){
-  if(err){
+  if (err){
     console.log('ERROR connect to ' + config.db, err);
-  }
-  else{
+  } else {
     console.log('Succesfully conected to ' + config.db);
   }
-})
+});

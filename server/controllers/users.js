@@ -15,14 +15,14 @@ module.exports = function(app) {
       newUser.provider = 'local';
 
       newUser.save(function(err){
-        if(err){
+        if (err){
           return res.status(400).json(err);
         }
         req.logIn(newUser, function(err){
-          if(err) return next(err);
+          if (err) {return next(err);}
           return res.json(newUser.user_info);
         });
-      })
+      });
     },
 
     /**
@@ -31,16 +31,16 @@ module.exports = function(app) {
     exist: function(req, res, next){
       var email = req.params.email;
       User.findOne({'local.email': email}, function(err, usr){
-        if(err)
-          return next(new Error("Faild to load user %s", email));
-
-        if(usr){
-          res.json({exist: true});
-        }else{
-          res.json({exist: false});
+        if (err){
+          return next(new Error('Faild to load user %s', email));
+        }
+        if (usr){
+          return res.json({exist: true});
+        } else {
+          return res.json({exist: false});
         }
       });
     },
 
-  }
-}
+  };
+};

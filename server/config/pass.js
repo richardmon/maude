@@ -23,25 +23,25 @@ module.exports = function(app){
 
   // Local Strategy
   passport.use(new LocalStrategy({
-      usernameField: 'email',
-      passwordField: 'password'
-    },
+    usernameField: 'email',
+    passwordField: 'password'
+  },
     function(email, password, done) {
-      User.findOne({ 'local.email': email }, function (err, user) {
+      User.findOne({'local.email': email}, function (err, user) {
         if (err) {
           return done(err);
         }
         if (!user) {
           return done(null, false, {
             'errors': {
-              'email': { type: 'Email is not registered.' }
+              'email': {type: 'Email is not registered.'}
             }
           });
         }
         if (!user.validPassword(password)) {
           return done(null, false, {
             'errors': {
-              'password': { type: 'Password is incorrect.' }
+              'password': {type: 'Password is incorrect.'}
             }
           });
         }
@@ -58,10 +58,10 @@ module.exports = function(app){
     profileFields: ['id', 'email', 'gender', 'link', 'locale', 'name', 'timezone', 'updated_time', 'verified'],
   }, function(token, refreshToken, profile, done){
     User.findOne( {'facebook.id': profile.id}, function(err, user){
-      if(err){
+      if (err){
         return done(err);
       }
-      if(user){
+      if (user){
         return done(null, user);
       }
 
@@ -73,16 +73,14 @@ module.exports = function(app){
       newUser.provider = 'facebook';
 
       newUser.save(function(err){
-        if(err){
+        if (err){
           return done(err);
         }
         return done(null, newUser);
       });
 
-    })
-
-  }
-  ));
+    });
+  }));
 
   // Twitter Strategy
   passport.use(new TwitterStrategy({
@@ -91,10 +89,10 @@ module.exports = function(app){
     callbackURL: auth.twitterAuth.callbackURL,
   }, function(token, tokenSecret, profile, done){
     User.findOne({'twitter.id': profile.id}, function(err, user){
-      if(err){
+      if (err){
         return done(err);
       }
-      if(user){
+      if (user){
         return done(null, user);
       }
       var newUser = new User();
@@ -104,7 +102,7 @@ module.exports = function(app){
       newUser.provider = 'twitter';
 
       newUser.save(function(err){
-        if(err){
+        if (err){
           return done(err);
         }
         return done(null, newUser);
@@ -112,4 +110,4 @@ module.exports = function(app){
 
     });
   }));
-}
+};

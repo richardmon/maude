@@ -5,4 +5,4 @@ module.exports = function(app){
     User : require('./users')(app),
     Session: require('./session')(app),
   };
-}
+};

@@ -10,7 +10,7 @@ module.exports = function(app){
 
   //Session
   var session = app.controllers.Session;
-  app.get('/auth/session', isLoggeIn, session.session)
+  app.get('/auth/session', isLoggeIn, session.session);
   app.post('/auth/session', session.login);
   app.delete('/auth/session', session.logout);
 
@@ -31,7 +31,7 @@ module.exports = function(app){
       }));
 
   app.get('/*', function(req, res){
-    if(req.user) {
+    if (req.user) {
       res.cookie('user', JSON.stringify(req.user.user_info));
     }
 
@@ -40,7 +40,7 @@ module.exports = function(app){
 };
 
 function isLoggeIn(req, res, next){
-  if(req.isAuthenticated()){
+  if (req.isAuthenticated()){
     return next();
   }
   res.sendStatus(401);

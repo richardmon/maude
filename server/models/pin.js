@@ -18,8 +18,9 @@ var Pin = new Schema({
  * pre-save
  **/
 Pin.pre('save', function(next){
-  if(!this.isNew)
+  if (!this.isNew){
     return next();
+  }
 
   this.created = Date.now();
   next();

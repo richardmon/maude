@@ -5,10 +5,10 @@ var express = require('express');
 var app = express();
 var passport = require('passport');
 var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var path = require('path');
-var errorHandler = require('errorhandler')
+var errorHandler = require('errorhandler');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var config = require('./server/config');
@@ -23,19 +23,19 @@ app.controllers = require('./server/controllers')(app);
 
 
 //Connect dbs
-var db = require('./server/config/database').db;
+require('./server/config/database').db;
 
 //Passport
-var pass = require('./server/config/pass')(app);
+require('./server/config/pass')(app);
 
 // App Configuration
-if(app.get('env') == 'development') {
+if (app.get('env') === 'development') {
   app.use(express.static(path.join(__dirname, 'client')));
   app.use(errorHandler());
   app.set('views', __dirname + '/client');
 };
 
-if(app.get('env') == 'production'){
+if (app.get('env') === 'production'){
   app.use(express.static(path.join(__dirname, 'dist')));
   app.set('views', __dirname + '/dist');
 };

@@ -3,7 +3,7 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var crypto = require('crypto')
+var crypto = require('crypto');
 
 var User = new Schema({
   picture: String,
@@ -42,7 +42,7 @@ User.path('local.password')
 
 User.virtual('user_info')
 .get(function(){
-  return {'_id': this._id, 'name': this[this.provider].name, 'email': this[this.provider].email };
+  return {'_id': this._id, 'name': this[this.provider].name, 'email': this[this.provider].email};
 });
 
 /**
@@ -51,7 +51,7 @@ User.virtual('user_info')
 
 var notNull = function(value){
   return value && value.length;
-}
+};
 
 User.path('local.email').validate(function (email) {
   var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
@@ -59,25 +59,25 @@ User.path('local.email').validate(function (email) {
 }, 'The given email is invalid.');
 
 User.path('local.email').validate(function(value, respond) {
-  mongoose.models["User"].findOne({'local.email': value}, function(err, user) {
-    if(err) throw err;
-    if(user) return respond(false);
+  mongoose.models['User'].findOne({'local.email': value}, function(err, user) {
+    if (err) {throw err;}
+    if (user) {return respond(false);}
     respond(true);
   });
 }, 'The given email address is already in use.');
 
 User.path('facebook.id').validate(function(id, respond) {
-  mongoose.models["User"].findOne({'facebook.id': id}, function(err, user) {
-    if(err) throw err;
-    if(user) return respond(false);
+  mongoose.models['User'].findOne({'facebook.id': id}, function(err, user) {
+    if (err) {throw err;}
+    if (user) {return respond(false);}
     respond(true);
   });
 }, 'The facebook ID is already in use.');
 
 User.path('twitter.id').validate(function(id, respond) {
-  mongoose.models["User"].findOne({'twitter.id': id}, function(err, user) {
-    if(err) throw err;
-    if(user) return respond(false);
+  mongoose.models['User'].findOne({'twitter.id': id}, function(err, user) {
+    if (err) {throw err;}
+    if (user) {return respond(false);}
     respond(true);
   });
 }, 'The twitter ID is already in use.');
@@ -90,14 +90,14 @@ User.methods.validPassword = function(passwd){
 };
 
 User.methods.encryptPassword = function(passwd){
-  if(!passwd || !this.local.salt) return '';
+  if (!passwd || !this.local.salt) {return '';}
   var salt = new Buffer(this.local.salt, 'base64');
   return crypto.pbkdf2Sync(passwd, salt, 1000, 64).toString('base64');
-}
+};
 
 User.methods.makeSalt = function(){
   return crypto.randomBytes(16).toString('base64');
-}
+};
 
 /**
  * pre-save
@@ -107,7 +107,7 @@ User.pre('save', function(next) {
     return next();
   }
 
-  if(this.provider === 'local'){
+  if (this.provider === 'local'){
     if (notNull(this.local.password)) {
       next();
     }
