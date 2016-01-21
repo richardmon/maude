@@ -1,5 +1,5 @@
 // modal sign in
-.modal#signin-modal(tab-index="-1" role="dialog" ng-controller="LoginCtrl as loginCtrl")
+.modal#signin-modal(tab-index="-1" role="dialog" ng-controller="LoginController as loginCtrl")
   .modal-dialog.modal-sm
     .modal-content
       .modal-body.signin-body
@@ -21,7 +21,7 @@
 
         .row
           .col-sm-12.text-center.top-buffer
-            .alert-danger(ng-show="loginCtrl.errors")
+            .alert-danger(ng-show="loginCtrl.hasErrors()")
               .space-for-alert
                 div(ng-repeat="error in loginCtrl.errors")
                   | {{error.message}}

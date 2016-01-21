@@ -25,9 +25,13 @@ module.exports = function(grunt){
         files: ['client/_styles/*.styl'],
         tasks: ['stylus']
       },
-      eslint: {
+      eslintServer: {
         files: ['server/**/*.js', 'server.js'],
         tasks: ['eslint:server']
+      },
+      eslintClient: {
+        files: ['client/scripts/app.js', 'client/scripts/{controllers,services}/**.js'],
+        tasks: ['eslint:client']
       }
     },
     //Stylus
@@ -94,13 +98,16 @@ module.exports = function(grunt){
     eslint: {
       server: {
         src: ['server/**/*.js', 'server.js']
+      },
+      client: {
+        src: ['client/scripts/app.js', 'client/scripts/{controllers,services}/**.js']
       }
     }
   });
 
 
   //Tasks
-  grunt.registerTask('default', ['stylus', 'postcss', 'jade', 'eslint:server', 'connect:server', 'watch']);
+  grunt.registerTask('default', ['stylus', 'postcss', 'jade', 'eslint:server', 'eslint:client', 'connect:server', 'watch']);
   grunt.registerTask('build', [ 'jade', 'stylus', 'postcss', 'useminPrepare', 'concat', 'ngAnnotate', 'uglify', 'cssmin', 'usemin', 'copy']);
 
 }

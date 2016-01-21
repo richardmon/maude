@@ -49,7 +49,7 @@ div(ng-controller="SignupController as signupCtrl")
             hr
           .row
             .col-xs-12.text-center.top-buffer
-              .alert-danger(ng-show="signupCtrl.errors")
+              .alert-danger(ng-show="signupCtrl.hasErrors()")
                 .space-for-alert
                   div(ng-repeat="error in signupCtrl.errors")
                     | {{error.message}}
