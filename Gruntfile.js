@@ -7,12 +7,12 @@ module.exports = function(grunt){
     //Jade compilation
     jade: {
       compile: {
-	options: {
-	  pretty: true,
-	},
-	files: {
-	  "client/index.html": ["client/index.jade"],
-	}
+        options: {
+          pretty: true,
+        },
+        files: {
+          'client/index.html': ['client/index.jade'],
+        }
       },
       views: {
         options: {
@@ -29,12 +29,18 @@ module.exports = function(grunt){
     //Look for changes
     watch:{
       jade:{
-	files: ['client/**/**.jade'],
-	tasks: ['jade']
+        files: ['client/**/**.jade'],
+        tasks: ['jade'],
+        options: {
+          livereload: true
+        }
       },
       stylus:{
         files: ['client/_styles/*.styl'],
-        tasks: ['stylus']
+        tasks: ['stylus'],
+        options: {
+          livereload: true
+        }
       },
       eslintServer: {
         files: ['server/**/*.js', 'server.js'],
@@ -43,6 +49,12 @@ module.exports = function(grunt){
       eslintClient: {
         files: ['client/scripts/app.js', 'client/scripts/routes.js', 'client/scripts/{controllers,services}/**.js'],
         tasks: ['eslint:client']
+      },
+      configFiles: {
+        files: ['Gruntfile.js'],
+        options: {
+          reload: true
+        }
       }
     },
     //Stylus
@@ -58,12 +70,11 @@ module.exports = function(grunt){
     },
   //Server
     connect: {
-      server: {
-	options: {
-	  livereload: true,
-	  base: 'client/',
-	  port: 8000
-	}
+      client: {
+        options: {
+          base: 'client/',
+          port: 8000
+        }
       }
     },
     postcss: {
@@ -80,7 +91,7 @@ module.exports = function(grunt){
     },
     ngAnnotate: {
       options: {
-          singleQuotes: true,
+        singleQuotes: true,
       },
       angularCode:{
         files: {
@@ -120,7 +131,18 @@ module.exports = function(grunt){
 
 
   //Tasks
-  grunt.registerTask('default', ['stylus', 'postcss', 'jade', 'connect:server', 'watch']);
-  grunt.registerTask('build', ['eslint:server', 'eslint:client', 'jade', 'stylus', 'postcss', 'useminPrepare', 'concat', 'ngAnnotate', 'uglify', 'cssmin', 'usemin', 'copy']);
+  grunt.registerTask('default', ['stylus', 'postcss', 'jade', 'watch']);
+  grunt.registerTask('client', ['stylus', 'postcss', 'jade', 'connect:client', 'watch']);
+  grunt.registerTask('build', ['eslint:server',
+                               'eslint:client',
+                               'jade', 'stylus',
+                               'postcss',
+                               'useminPrepare',
+                               'concat',
+                               'ngAnnotate',
+                               'uglify',
+                               'cssmin',
+                               'usemin',
+                               'copy']);
 
-}
+};
