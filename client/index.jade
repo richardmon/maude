@@ -20,60 +20,20 @@ body(ng-app="maude")
   nav.navbar.navbar-default.navbar-fixed-top
     .container-fluid
       .navbar-header
-        a.navbar-brand(href="#") App
+        a.navbar-brand(ui-sref="home") App
         a.navbar-toggle(href="#download") Download
       ul.collapse.navbar-collapse.navbar-nav.nav.navbar-right
         li
-          a(href="#" data-toggle="modal" data-target="#signin-modal" ng-show="!user") Sign In
+          a(href data-toggle="modal" data-target="#signin-modal" ng-show="!user") Sign In
         li
-          a(href="#" data-toggle="modal" data-target="#signup-modal" ng-show="!user") Sign Up
+          a(href data-toggle="modal" data-target="#signup-modal" ng-show="!user") Sign Up
         li(ng-show="user" ng-controller="LogoutController as logoutCtrl")
-          a(href="#" ng-click="logoutCtrl.logoutUser()") Logout
+          a(href ng-click="logoutCtrl.logoutUser()") Logout
 
   include ./includes/signin.jade
   include ./includes/signup.jade
 
-  header
-    .header-content
-      h1
-        span MESSAGE
-      h2
-        span kicker
-
-  section#about
-    .container
-      .row
-        .col-lg-8.col-lg-offset-2.text-center
-          h2 What we do
-          hr
-          div.
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-  section#content
-    .container
-      .row
-        .col-md-7
-          h2 content section
-          p.lead.
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-            tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
-            vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-            no sea takimata sanctus est Lorem ipsum dolor sit amet.
-        .col-md-5
-          img(style="height:500px; width:500px;").img-responsive.center-block
-
-      .row
-
-  section#download.hidden
-    .container
-      .row
-        .col-lg-8.col-lg-offset-2.text-center
-          h2 Download
-      .row
-        .col-sm-6.text-center.
-          Download Android
-        .col-sm-6.text-center.
-          Download IOS
+  .views(ui-view)
 
   footer
     .container.footer-content
@@ -106,12 +66,14 @@ script( src="components/jquery/dist/jquery.min.js" )
 script( src="components/bootstrap/dist/js/bootstrap.min.js" )
 script( src="components/angular/angular.min.js")
 script( src="components/angular-resource/angular-resource.min.js" )
+script( src="components/angular-ui-router/release/angular-ui-router.min.js" )
 //endbuild
 
 //build:js js/script.js
 script( src="scripts/functions.js" )
 script( src="scripts/facebook.js" )
 script( src="scripts/app.js" )
+script( src="scripts/routes.js" )
 script( src="scripts/services/auth.js" )
 script( src="scripts/services/user.js" )
 script( src="scripts/services/session.js" )

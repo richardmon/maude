@@ -23,7 +23,8 @@ a
   //Purple Theme
   background-color white
   font-family font-open-sans
-  transition all 0.5s ease
+  transition all 0.35s ease
+  border-color transparent
 
   .navbar-nav>li>a
     color rgba(purple, 0.7)
@@ -105,6 +106,9 @@ a
           color purple
 
 
+.navbar-colored
+  padding-top 50px
+  background-color header-color
 
 //Modal
 .modal
@@ -156,12 +160,15 @@ a
     background-color twitter-color
 
 
+.views
+  min-height 100%
+  width 100%
 
 //Header
 header
   position relative
 
-  height 100%
+  height 100vh
   width 100%
   background-image url(../images/header.jpg)
   background-repeat no-repeat
@@ -171,7 +178,7 @@ header
 
   .header-content
     position absolute
-    top 50%
+    top 45%
     text-align center
     width 100%
     margin-top - header-font-size
@@ -192,9 +199,29 @@ header
       font-size 30px
       letter-spacing 2px
 
+    a
+      color white !important
+      font-family font-open-sans
+
+      &:hover,
+      &:focus,
+      &:active
+        color white !important
+
+
+      .home-search-button
+        font-size 16px
+        padding 6px 40px
+        border-radius 2px
+        margin-top 50px
+        background-color rgba(255,255,255,0.5)
+        color white
+
+        &:hover
+          background rgba(0,0,0,.5)
+
   @media (max-width: 768px)
-    height: 90%
-    background-attachment local
+    height: 90vh
 
 //Sections
 section
@@ -220,24 +247,67 @@ section
   background-color black
   color white
 
+// Search
+.search-input
+  background-color header-color
+  padding-top 10px
+  padding-bottom 60px
+  margin-bottom 30px
+
+.result-display-pins
+  .panel
+    padding 0px 40px
+    transition 0.3s
+
+    &:hover
+      box-shadow 0 1px 1px rgba(0,0,0,.8)
+
+#title-panel
+  padding-bottom 10px
+  h4
+    display inline-block
+
+  img
+    height 35px
+    width 35px
+    margin-left 20px
+    margin-right 20px
+
+
+.background-pink
+  background-color background-pink
+
+// Pin
+#description-pin
+
+  img
+    height auto
+    width auto
+
+  .avatar
+    height 100px
+    width 100px
+
+  .gallery-pin
+    max-height 800px
+    max-width 800px
+
+  .thumbnail
+    border-radius 2px
+    transition all 0.3s
+
+    &:hover
+      transform scale(1.1)
+
 
 footer
   background-color background-footer
   color white
   font-family font-open-sans
-  //Parallex effect
-  overflow hidden
-  position relative
-  padding-bottom 16%
-  // min-height 240px
-  z-index -9999
 
 
   .footer-content
-    //Parallex effect
-    z-index -9999
-    position fixed
-    bottom 0
+    padding-top 30px
 
   .information
     display block

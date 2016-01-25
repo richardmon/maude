@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  angular.module('maude', ['ngResource'])
+  angular.module('maude', ['ngResource', 'ui.router'])
   // Facebook SDK, for more information https://developers.facebook.com/docs/javascript/howto/angularjs
   .run(function($window){
     $window.fbAsyncInit = function() {

@@ -6,33 +6,17 @@
       var scroll = $(this).scrollTop();
 
       //Navbar effect
-
-      var wHeight = $(window).height();
-      if(scroll > wHeight*0.4){
+      if(scroll){
         $('.navbar').addClass('affix');
       }
       else{
         $('.navbar').removeClass('affix');
       }
 
-      //Parallax Header
-        $('.header-content').css({
-          'transform' : 'translate(0px, '+ scroll/3 + '%)'
-        });
-    })//End scroll
+      // Parallax Header
+         $('.header-content').css({
+           'transform' : 'translate(0px, '+ scroll/5 + '%)'
+         });
+    }) //End scroll
   }
-  //Center the footer
-  var footerCentered =function(){
-    var footerWidth = $('.footer-content').outerWidth();
-    var footerHeight = $('.footer-content').outerHeight();
-    $('.footer-content').css({
-      'left':'calc(50% - ' + footerWidth/2 + 'px)'
-    });
-    $('footer').css({
-      'height' : footerHeight + 20 + 'px'
-    });
-  }
-  $(window).ready(footerCentered);
-  $(window).resize(footerCentered);
-
 })();
