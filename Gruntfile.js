@@ -42,14 +42,6 @@ module.exports = function(grunt){
           livereload: true
         }
       },
-      eslintServer: {
-        files: ['server/**/*.js', 'server.js'],
-        tasks: ['eslint:server']
-      },
-      eslintClient: {
-        files: ['client/scripts/app.js', 'client/scripts/routes.js', 'client/scripts/{controllers,services}/**.js'],
-        tasks: ['eslint:client']
-      },
       configFiles: {
         files: ['Gruntfile.js'],
         options: {

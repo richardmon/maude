@@ -13,7 +13,9 @@
       })
       .state('search', {
         url: '/search',
-        templateUrl : 'views/search.html'
+        templateUrl : 'views/search.html',
+        controller: 'SearchController',
+        controllerAs : 'searchCtrl'
       })
       .state('pin', {
         url: '/pins',
