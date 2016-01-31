@@ -9,10 +9,19 @@ var Pin = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
+  title:{
+    type: String,
+    requered: true
+  },
   created: Date,
   content: String,
+  location: {
+    Lat: {type: String, required: true},
+    Lng: {type: String, required: true}
+  },
   available: Boolean
 });
+
 
 /**
  * pre-save

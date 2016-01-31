@@ -45,6 +45,13 @@ User.virtual('user_info')
   return {'_id': this._id, 'name': this[this.provider].name, 'email': this[this.provider].email};
 });
 
+User.virtual('user_details')
+.get(function(){
+  return {'_id': this._id,
+          'name': this[this.provider].name,
+          'picture': this.picture
+        }
+});
 /**
  *Validate
  **/

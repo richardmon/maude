@@ -29,6 +29,13 @@ require('./server/config/database').db;
 require('./server/config/pass')(app);
 
 // App Configuration
+if (app.get('env') === 'test') {
+  app.use(express.static(path.join(__dirname, 'client')));
+  app.use(errorHandler());
+  app.set('views', __dirname + '/client');
+  require('./server/config/database').seed(app);
+};
+
 if (app.get('env') === 'development') {
   app.use(express.static(path.join(__dirname, 'client')));
   app.use(errorHandler());
@@ -65,7 +72,7 @@ app.use(passport.session());
 require('./server/config/routes')(app);
 
 //Connect
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || config.port;
 app.listen(port, function () {
   console.log('Express server listening on port %d in %s mode', port, app.get('env'));
 });

@@ -7,6 +7,7 @@ module.exports = function(app){
   var user = app.controllers.User;
   app.post('/user', user.create);
   app.get('/user/check_email/:email', user.exist);
+  app.get('/user/:userId', user.info);
 
   //Session
   var session = app.controllers.Session;
@@ -29,6 +30,11 @@ module.exports = function(app){
         successRedirect : '/',
         failureRedirect : '/'
       }));
+
+  // Pins
+  var pin = app.controllers.Pin;
+  app.post('/pin', isLoggeIn,  pin.create);
+  app.get('/pin/:pinId', pin.getPin);
 
   app.get('/*', function(req, res){
     if (req.user) {

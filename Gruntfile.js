@@ -118,14 +118,39 @@ module.exports = function(grunt){
       client: {
         src: ['client/scripts/app.js', 'client/scripts/routes.js', 'client/scripts/{controllers,services}/**.js']
       }
+    },
+
+    // Testing
+    mochaTest: {
+      testServer: {
+        options: {
+          reporter: 'spec'
+        },
+        src: ['test/server/**/*.js',
+              'test/server/*.js']
+      }
+    },
+    karma: {
+     single: {
+      configFile: 'karma.conf.js',
+      singleRun: true
+      }
+    },
+    watch: {
+      configFile: 'karma.conf.js',
     }
   });
 
 
   //Tasks
   grunt.registerTask('default', ['stylus', 'postcss', 'jade', 'watch']);
+  grunt.registerTask('test', ['mochaTest', 'karma']);
+  grunt.registerTask('test-server', ['mochaTest']);
+  grunt.registerTask('test-client', ['karma:watch']);
   grunt.registerTask('client', ['stylus', 'postcss', 'jade', 'connect:client', 'watch']);
-  grunt.registerTask('build', ['eslint:server',
+  grunt.registerTask('build', ['mochaTest',
+                               'karma:single',
+                               'eslint:server',
                                'eslint:client',
                                'jade', 'stylus',
                                'postcss',

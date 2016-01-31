@@ -18,8 +18,13 @@
         controllerAs : 'searchCtrl'
       })
       .state('pin', {
-        url: '/pins',
-        templateUrl : 'views/pin.html'
+        url: '/pin/:pinId',
+        templateUrl : 'views/pin.html',
+        controller: 'PinController',
+        controllerAs: 'pinCtrl'
+      })
+      .state('404', {
+        url: '/404'
       });
     });
 })();
