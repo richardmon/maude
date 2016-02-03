@@ -35,6 +35,7 @@ module.exports = function(app){
   var pin = app.controllers.Pin;
   app.post('/pin', isLoggeIn,  pin.create);
   app.get('/pin/:pinId', pin.getPin);
+  app.get('/pins', pin.searchPins);
 
   app.get('/*', function(req, res){
     if (req.user) {

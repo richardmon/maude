@@ -131,14 +131,11 @@ module.exports = function(grunt){
       }
     },
     karma: {
-     single: {
+     karma: {
       configFile: 'karma.conf.js',
       singleRun: true
       }
     },
-    watch: {
-      configFile: 'karma.conf.js',
-    }
   });
 
 
@@ -146,7 +143,7 @@ module.exports = function(grunt){
   grunt.registerTask('default', ['stylus', 'postcss', 'jade', 'watch']);
   grunt.registerTask('test', ['mochaTest', 'karma']);
   grunt.registerTask('test-server', ['mochaTest']);
-  grunt.registerTask('test-client', ['karma:watch']);
+  grunt.registerTask('test-client', ['karma']);
   grunt.registerTask('client', ['stylus', 'postcss', 'jade', 'connect:client', 'watch']);
   grunt.registerTask('build', ['mochaTest',
                                'karma:single',

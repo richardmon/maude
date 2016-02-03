@@ -15,10 +15,10 @@ var Pin = new Schema({
   },
   created: Date,
   content: String,
-  location: {
-    Lat: {type: String, required: true},
-    Lng: {type: String, required: true}
-  },
+  location: [{
+    Lat: String,
+    Lng: String
+  }],
   available: Boolean
 });
 

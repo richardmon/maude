@@ -19,12 +19,12 @@
 
       function search(){
         var searchParams = {};
-        searchParams.lat = vm.places[0].geometry.location.lat();
-        searchParams.lng = vm.places[0].geometry.location.lng();
+        searchParams.Lat = vm.places[0].geometry.location.lat();
+        searchParams.Lng = vm.places[0].geometry.location.lng();
 
         pin.searchPins(searchParams).then(function(pinDataArray){
           vm.pins = pinDataArray;
-        })
+        });
 
       }
 

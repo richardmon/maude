@@ -10,28 +10,38 @@ var fakeUser = {
   password: '1a2b3c4d5e6'
 };
 
+var pinId;
 
 describe('Pins', function(){
   var pin = {
     title : 'Test Title',
     content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    location: {
+    location: [{
       Lat: '123',
       Lng: '124'
-    }
+    }]
   };
-
   var userId;
 
   before(function(done){
     loggedIn
       .post('/auth/session')
       .send(fakeUser)
+      .expect(200)
       .end(function(err, res){
-        expect(res.statusCode).to.be.equal(200);
         userId = res.body._id;
         done();
       });
+  });
+
+  afterEach('Clean db', function(){
+    process.env.NODE_ENV = 'test';
+    var mongoose = require('mongoose');
+    var config = require('../../../server/config');
+    require('../../../server/models/pin');
+
+    var db = mongoose.createConnection(config.db);
+    db.model('Pin').remove({_id : pinId}).exec();
   });
 
   describe('POST pin creation', function(){
@@ -45,8 +55,10 @@ describe('Pins', function(){
           expect(res.body._id).to.be.ok;
           expect(res.body.title).to.be.equal(pin.title);
           expect(res.body.content).to.be.equal(pin.content);
-          expect(res.body.location).to.be.eql(pin.location);
-          expect(res.body.creator).to.be.ok;
+          expect(res.body.location).to.be.instanceOf(Array);
+          expect(res.body.location[0]).to.contain(pin.location[0]);
+          expect(res.body.creator).to.be.equal(userId);
+          pinId = res.body._id;
           done();
         });
     });
@@ -65,7 +77,7 @@ describe('Pins', function(){
   });
 
   describe('GET get pin', function(){
-    var pinId;
+
     before(function(done){
       loggedIn
         .post('/pin')
@@ -82,13 +94,13 @@ describe('Pins', function(){
         .expect(200)
         .end(function(err, res){
           expect(res.body).to.exist;
-          expect(res.body.creator).to.exist;
           expect(res.body.available).to.exist;
-          expect(res.body.content).to.exist;
+          expect(res.body.title).to.be.equal(pin.title);
           expect(res.body.content).to.be.equal(pin.content);
-          expect(res.body.location).to.be.ok;
-          expect(res.body.location).to.contain(pin.location);
-          expect(res.body.creator).to.equal(userId);
+          expect(res.body.location).to.be.instanceOf(Array);
+          expect(res.body.location[0]).to.contain(pin.location[0]);
+          expect(res.body.creator).to.exist;
+          expect(res.body.creator).to.be.equal(userId);
           done();
         });
     });
@@ -99,6 +111,32 @@ describe('Pins', function(){
         .expect(404)
         .end(function(err, res){
           expect(res.body).to.be.empty;
+          done();
+        });
+    });
+  });
+
+  describe('GET search pins', function(){
+    before(function(done){
+      loggedIn
+        .post('/pin')
+        .send(pin)
+        .expect(200)
+        .end(function(err, res){
+          pinId = res.body._id;
+          done();
+        });
+    });
+
+    it('should return array of result', function(done){
+      var queryjtring = require('querystring');
+      var query = queryjtring.stringify(pin.location[0]);
+      noLoggedIn
+        .get('/pins?' + query)
+        .expect(200)
+        .end(function(err, res){
+          expect(res.body.results).to.be.instanceOf(Array);
+          expect(res.body.results).not.to.be.empty;
           done();
         });
     });

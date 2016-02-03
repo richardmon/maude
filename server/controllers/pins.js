@@ -11,8 +11,7 @@ module.exports = function(app){
       newPin.creator = req.user._id;
       newPin.title = req.body.title;
       newPin.content = req.body.content;
-      newPin.location.Lat = req.body.location.Lat;
-      newPin.location.Lng = req.body.location.Lng;
+      newPin.location = req.body.location.slice();
       newPin.available = true;
 
       newPin.save(function(err){
@@ -23,6 +22,9 @@ module.exports = function(app){
       });
     },
 
+    /**
+     * Returns pin information
+     **/
     getPin: function(req, res){
       var pinId = req.params.pinId;
       Pin.findById(pinId, function(err, pin){
@@ -30,6 +32,23 @@ module.exports = function(app){
           return res.sendStatus(404);
         }
         return res.json(pin);
+      });
+    },
+
+    /**
+     * Search for pins matching the query
+     **/
+    searchPins: function(req, res){
+      var Lat = req.query.Lat;
+      var Lng = req.query.Lng;
+
+      Pin.find({
+        $and: [
+          {'location.Lat': Lat},
+          {'location.Lng': Lng}
+        ]
+      }, function(err, pins){
+        return res.json({'results': pins});
       });
     }
   };
