@@ -117,6 +117,9 @@ module.exports = function(grunt){
       },
       client: {
         src: ['client/scripts/app.js', 'client/scripts/routes.js', 'client/scripts/{controllers,services}/**.js']
+      },
+      test: {
+        src: ['test/**/**.js']
       }
     },
 
@@ -146,9 +149,10 @@ module.exports = function(grunt){
   grunt.registerTask('test-client', ['karma']);
   grunt.registerTask('client', ['stylus', 'postcss', 'jade', 'connect:client', 'watch']);
   grunt.registerTask('build', ['mochaTest',
-                               'karma:single',
+                               'karma',
                                'eslint:server',
                                'eslint:client',
+                               'eslint:test',
                                'jade', 'stylus',
                                'postcss',
                                'useminPrepare',

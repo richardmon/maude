@@ -16,6 +16,7 @@ var Pin = new Schema({
   created: Date,
   content: String,
   location: [{
+    name: String,
     Lat: String,
     Lng: String
   }],

@@ -50,7 +50,7 @@ User.virtual('user_details')
   return {'_id': this._id,
           'name': this[this.provider].name,
           'picture': this.picture
-        }
+        };
 });
 /**
  *Validate

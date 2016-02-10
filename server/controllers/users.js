@@ -45,12 +45,12 @@ module.exports = function(app) {
     info: function(req, res){
       var userId = req.params.userId;
       User.findById(userId, function(err, usr){
-        if(err){
+        if (err){
           return res.sendStatus(404);
         }
 
         return res.json(usr.user_details);
-      })
+      });
     }
 
   };

@@ -10,11 +10,11 @@ var userId;
 before(function(){
   // User taken from seeder file
   user = {
-      picture: 'images/avatar.png',
-      name : 'Test User',
-      email : 'test@email.com',
-      password : '1a2b3c4d5e6'
-  }
+    picture: 'images/avatar.png',
+    name : 'Test User',
+    email : 'test@email.com',
+    password : '1a2b3c4d5e6'
+  };
 
   request(LOCAL_ADDRESS)
     .post('/auth/session')
@@ -22,7 +22,7 @@ before(function(){
     .expect(200)
     .end(function(err, res){
       userId = res.body._id;
-    })
+    });
 });
 
 describe('User Api', function(){
@@ -53,7 +53,7 @@ describe('User Api', function(){
         .end(function(err, res){
           expect(res.body).to.be.empty;
           done();
-        })
+        });
     });
   });
 });

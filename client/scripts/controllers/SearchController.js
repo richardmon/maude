@@ -35,7 +35,6 @@
             var searchBox = new google.maps.places.SearchBox(input);
             searchBox.addListener('places_changed', function(){
               vm.places = searchBox.getPlaces();
-              console.log(places);
             });
           }
 

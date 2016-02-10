@@ -39,10 +39,11 @@ describe('Search Controller', function(){
       title: 'TItle',
       creator: 1234,
       content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt inculpa qui officia deserunt mollit anim id est laborum.',
-      location: {
+      location: [{
+        name: 'Place Name',
         Lat: '123',
         Lng: '124'
-      },
+      }],
       available: true
     };
 
@@ -69,7 +70,7 @@ describe('Search Controller', function(){
 
 
   describe('Search Pin', function(){
-    beforeEach(inject(function($httpBackend, $rootScope){
+    beforeEach(inject(function(){
 
       // Google maps serachbox result mock
       searchCtrl.places = [{
@@ -87,9 +88,9 @@ describe('Search Controller', function(){
         Lat: 57.000
       };
       sinon.stub(searchCtrl.places[0].geometry.location,
-          'lat',function(){return searchParams.Lat});
+          'lat',function(){return searchParams.Lat;});
       sinon.stub(searchCtrl.places[0].geometry.location,
-          'lng',function(){return searchParams.Lng});
+          'lng',function(){return searchParams.Lng;});
 
       //Spy on service
       sinon.spy(mockPinService, 'searchPins');

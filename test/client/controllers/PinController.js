@@ -7,7 +7,7 @@ describe('Pin Controller', function(){
   var scope;
   var state;
   var pinModel;
-  var pinId;
+  var pinResponse;
   var user;
 
   beforeEach(module('maude'));
@@ -26,15 +26,16 @@ describe('Pin Controller', function(){
     };
   });
 
-  beforeEach(inject(function($q, $controller, $rootScope, $state, $stateParams, $httpBackend){
+  beforeEach(inject(function($q, $controller, $rootScope, $state, $stateParams){
     // mock pin
     pinModel = {
       title: 'TItle',
       content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt inculpa qui officia deserunt mollit anim id est laborum.',
-      location: {
+      location: [{
+        name: 'Location name',
         Lat: '123',
         Lng: '124'
-      },
+      }],
     };
     //mock user
     user = {
@@ -43,12 +44,22 @@ describe('Pin Controller', function(){
       _id : 9876
     };
 
+    // Mocks server answer
+    pinResponse = {
+      _id: 122423346,
+      title: 'TItle',
+      content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt inculpa qui officia deserunt mollit anim id est laborum.',
+      location: [{
+        name: 'Location name',
+        Lat: '123',
+        Lng: '124'
+      }],
+    };
     q = $q;
     scope = $rootScope.$new();
     scope.user = user;
     state = $state;
     stateParams = $stateParams;
-    pinId = 54321;
     pinCtrl = $controller('PinController', {
       $scope: scope,
       pin: mockPinService,
@@ -59,32 +70,73 @@ describe('Pin Controller', function(){
 
   describe('Pin Creation', function(){
 
-    it('should create a pin and redirect to it if success', function(){
-      sinon.spy(mockPinService, 'createPin');
+    describe('Create Pin', function(){
+      it('should create a pin and redirect to it if success', function(){
+        sinon.spy(mockPinService, 'createPin');
+        var valid = true;
 
-      pinCtrl.create(pinModel);
-      deferred.resolve(pinId);
+        pinCtrl.create(valid, pinModel);
+        deferred.resolve(pinResponse);
 
-      scope.$digest();
+        scope.$digest();
 
-      expect(state.current.name).to.equal('pin');
-      expect(pinCtrl.errorCreatingPin).to.be.false;
-      expect(stateParams.pinId).to.equal(pinId.toString());
-      expect(mockPinService.createPin.calledWith(pinModel)).to.be.true;
+        expect(state.current.name).to.equal('pin');
+        expect(pinCtrl.errorCreatingPin).to.be.false;
+        expect(stateParams.pinId).to.equal(pinResponse._id.toString());
+        expect(mockPinService.createPin.calledWith(pinModel)).to.be.true;
 
+      });
+
+      it('should  a set errorCreatingPin to true if an error occurse on the creation of a pin', function(){
+        sinon.spy(mockPinService, 'createPin');
+        var valid = true;
+
+        pinCtrl.create(valid, pinModel);
+        deferred.reject(pinResponse);
+
+        scope.$digest();
+
+        expect(pinCtrl.errorCreatingPin).to.be.true;
+        expect(mockPinService.createPin.calledWith(pinModel)).to.be.true;
+
+      });
     });
 
-    it('should  a set errorCreatingPin to true if an error occurse on the creation of a pin', function(){
-      sinon.spy(mockPinService, 'createPin');
+    describe('Pin Definition', function(){
+      var location;
+      beforeEach(function(){
+        // Mock expected entry
+        location = {
+          name: 'Location name',
+          Lat: 57.000,
+          Lng: -47.000
+        };
+        // Mock google maps API
+        pinCtrl.place = {
+          name: location.name,
+          geometry: {
+            location: {
+              lat: function(){},
+              lng: function(){}
+            }
+          }
+        };
+      });
 
-      pinCtrl.create(pinModel);
-      deferred.reject(pinId);
+      it('should add a new location if the entry is valid', function(){
+        sinon.stub(pinCtrl.place.geometry.location,'lat').returns(location.Lat);
+        sinon.stub(pinCtrl.place.geometry.location,'lng').returns(location.Lng);
 
-      scope.$digest();
+        expect(pinCtrl.pinModel.location).to.be.instanceOf(Array);
+        expect(pinCtrl.pinModel.location).to.be.empty;
+        expect(pinCtrl.locationInput).to.exist;
 
-      expect(pinCtrl.errorCreatingPin).to.be.true;
-      expect(mockPinService.createPin.calledWith(pinModel)).to.be.true;
+        pinCtrl.addLocationPinCreation();
 
+        expect(pinCtrl.locationInput).to.be.empty;
+        expect(pinCtrl.place).not.to.exist;
+        expect(pinCtrl.pinModel.location).to.contain(location);
+      });
     });
   });
 

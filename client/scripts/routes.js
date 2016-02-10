@@ -18,8 +18,14 @@
         controllerAs : 'searchCtrl'
       })
       .state('pin', {
-        url: '/pin/:pinId',
+        url: '/pin/details/:pinId',
         templateUrl : 'views/pin.html',
+        controller: 'PinController',
+        controllerAs: 'pinCtrl'
+      })
+      .state('pinCreate', {
+        url: '/pin/create',
+        templateUrl : 'views/pinCreate.html',
         controller: 'PinController',
         controllerAs: 'pinCtrl'
       })
