@@ -48,7 +48,7 @@ module.exports = function(app){
           {'location.Lng': Lng}
         ]
       }, function(err, pins){
-        return res.json({'results': pins});
+        return res.json(pins);
       });
     }
   };

@@ -1,11 +1,10 @@
 .navbar-colored
 .container#description-pin
   .row
-    h1 Result
-
+    h1 {{ pinCtrl.pin.title }}
   .row
     .col-xs-8.
-      {{ pinCtrl.content }}
+      {{ pinCtrl.pin.content }}
 
     .col-xs-4.avatar
       img.img-responsive( src="../images/avatar.png" height="100" width="100")

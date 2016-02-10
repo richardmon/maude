@@ -136,8 +136,8 @@ describe('Pins', function(){
         .get('/pins?' + query)
         .expect(200)
         .end(function(err, res){
-          expect(res.body.results).to.be.instanceOf(Array);
-          expect(res.body.results).not.to.be.empty;
+          expect(res.body).to.be.instanceOf(Array);
+          expect(res.body).not.to.be.empty;
           done();
         });
     });

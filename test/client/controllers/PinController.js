@@ -6,6 +6,7 @@ describe('Pin Controller', function(){
   var mockPinService;
   var scope;
   var state;
+  var stateParams;
   var pinModel;
   var pinResponse;
   var user;
@@ -20,6 +21,10 @@ describe('Pin Controller', function(){
   beforeEach(function(){
     mockPinService = {
       createPin: function(){
+        deferred = q.defer();
+        return deferred.promise;
+      },
+      getPin: function(){
         deferred = q.defer();
         return deferred.promise;
       }
@@ -68,7 +73,7 @@ describe('Pin Controller', function(){
     });
   }));
 
-  describe('Pin Creation', function(){
+  describe('Pin Controller', function(){
 
     describe('Create Pin', function(){
       it('should create a pin and redirect to it if success', function(){
@@ -137,6 +142,31 @@ describe('Pin Controller', function(){
         expect(pinCtrl.place).not.to.exist;
         expect(pinCtrl.pinModel.location).to.contain(location);
       });
+    });
+  });
+
+  describe('Pin Description', function(){
+    beforeEach(inject(function($controller){
+      state.current.name = 'pin';
+      stateParams.pinId = 123442;
+      sinon.spy(mockPinService, 'getPin');
+      pinCtrl = $controller('PinController', {
+        $scope: scope,
+        pin: mockPinService,
+        $state: state,
+        $stateParams: stateParams
+      });
+    }));
+
+    it('should get the pin information', function(){
+
+      expect(pinCtrl.pin).to.be.empty;
+
+      deferred.resolve(pinResponse);
+      scope.$digest();
+
+      expect(pinCtrl.pin).to.be.equal(pinResponse);
+      expect(mockPinService.getPin.called).to.be.true;
     });
   });
 

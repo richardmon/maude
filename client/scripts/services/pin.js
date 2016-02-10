@@ -3,10 +3,11 @@
 
   angular.module('maude')
   .factory('pin', function UserFactory($resource){
-    var resource = $resource('/pin');
+    var resource = $resource('/pin/:pinId');
     var service = {
       searchPins : searchPins,
-      createPin : createPin
+      createPin : createPin,
+      getPin: getPin
     };
 
     return service;
@@ -19,6 +20,10 @@
 
     function createPin(pinModel){
       return resource.save(pinModel).$promise;
+    }
+
+    function getPin(pinId){
+      return resource.get({pinId: pinId}).$promise;
     }
   });
 })();

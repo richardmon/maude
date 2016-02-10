@@ -4,16 +4,20 @@
   angular.module('maude')
     .controller('PinController', function(pin, $stateParams, $state, $scope, $window){
       var vm = this;
-      vm.create = create;
-      vm.erroCreatingPin;
+
       // Pin Creation
       vm.pinModel = {
         location: []
       };
       vm.place;
+      vm.erroCreatingPin;
       vm.contentMinLength = 100;
       vm.locationInput = '';
       vm.addLocationPinCreation = addLocationPinCreation;
+      vm.create = create;
+
+      // Pin Description
+      vm.pin;
 
       activate();
 
@@ -51,7 +55,7 @@
 
       function activate(){
         $scope.$on('$viewContentLoaded', function(){
-          function initMap(){
+          function initLocatationInput(){
             var input = angular.element('#input-location-pins').get(0);
             var autocomplete = new google.maps.places.Autocomplete(input);
             autocomplete.addListener('place_changed', function(){
@@ -60,12 +64,19 @@
           }
 
           if ($state.current.name === 'pinCreate'){
-            initMap();
+            initLocatationInput();
           }
 
           // Scroll to the top of the page
           $window.scrollTo(0, 0);
         });
+
+        if ($state.current.name === 'pin'){
+          pin.getPin($stateParams.pinId)
+            .then(function(pinResponse){
+              vm.pin = pinResponse;
+            });
+        }
       }
     });
 })();
