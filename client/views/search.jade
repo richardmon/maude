@@ -4,13 +4,17 @@
     .container
       .row
         .col-12-xs
-          form.input-group(ng-submit="searchCtrl.search()")
+          form.input-group(ng-submit="searchCtrl.search()" name="searchInputForm")
             input.form-control#input-search-pins(placeholder="Where are you going?" aria-describedby="search-input-bar")
-            span.input-group-addon#search-input-bar
-              span.glyphicon.glyphicon-search
+            span.input-group-btn#search-input-bar
+              button.btn.btn-default
+                i.fa.fa-search
 
   .result-display-pins
     .container
+      .row(ng-show="!searchCtrl.pins.length && searchInputForm.$submitted")
+        h2 We sorry
+        p The place you're looking for did not produce a results.
       .row(ng-repeat="pin in searchCtrl.pins")
         .col-12-sm
           .panel

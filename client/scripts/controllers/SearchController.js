@@ -5,7 +5,7 @@
     .controller('SearchController', function($scope, $window, $state, pin){
       var vm = this;
       vm.pins = [];
-      vm.places;
+      vm.places = [];
       vm.openPin = openPin;
       vm.search = search;
 
@@ -18,14 +18,18 @@
       }
 
       function search(){
-        var searchParams = {};
-        searchParams.Lat = vm.places[0].geometry.location.lat();
-        searchParams.Lng = vm.places[0].geometry.location.lng();
+        if (vm.places.length){
+          var searchParams = {};
+          searchParams.Lat = vm.places[0].geometry.location.lat();
+          searchParams.Lng = vm.places[0].geometry.location.lng();
 
-        pin.searchPins(searchParams).then(function(pinDataArray){
-          vm.pins = pinDataArray;
-        });
-
+          pin.searchPins(searchParams).then(function(pinDataArray){
+            vm.pins = pinDataArray;
+            vm.places = [];
+          });
+        } else {
+          vm.pins = [];
+        }
       }
 
       function activate(){
@@ -35,6 +39,7 @@
             var searchBox = new google.maps.places.SearchBox(input);
             searchBox.addListener('places_changed', function(){
               vm.places = searchBox.getPlaces();
+              vm.search();
             });
           }
 

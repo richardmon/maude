@@ -100,15 +100,15 @@ describe('Search Controller', function(){
 
       searchCtrl.search();
 
+      expect(searchCtrl.places[0].geometry.location.lat.called).to.be.true;
+      expect(searchCtrl.places[0].geometry.location.lng.called).to.be.true;
+
       deferred.resolve([pinDataMock]);
       scope.$digest();
 
       expect(searchCtrl.pins).not.be.empty;
       expect(searchCtrl.pins).to.be.instanceOf(Array);
-
-
-      expect(searchCtrl.places[0].geometry.location.lat.called).to.be.true;
-      expect(searchCtrl.places[0].geometry.location.lng.called).to.be.true;
+      expect(searchCtrl.places).to.be.empty;
 
       expect(mockPinService.searchPins.calledWith(searchParams)).to.be.true;
     });

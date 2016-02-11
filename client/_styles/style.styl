@@ -252,7 +252,7 @@ section
   background-color header-color
   padding-top 10px
   padding-bottom 60px
-  margin-bottom 30px
+  margin-bottom 20px
 
   @media (max-width: 768px)
     padding-left 20px
@@ -260,12 +260,16 @@ section
     padding-top 30px
 
 .result-display-pins
+  margin-top 10px
   .panel
     padding 0px 40px
     transition 0.3s
 
     &:hover
       box-shadow 0 1px 1px rgba(0,0,0,.8)
+
+    p
+      word-wrap break-word
 
 #title-panel
   padding-bottom 10px
@@ -281,6 +285,7 @@ section
 
 .background-pink
   background-color background-pink
+  min-height 100vh
 
 // Pin
 #description-pin
