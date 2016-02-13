@@ -25,10 +25,10 @@
 
           pin.searchPins(searchParams).then(function(pinDataArray){
             vm.pins = pinDataArray;
-            vm.places = [];
           });
         } else {
           vm.pins = [];
+          $scope.$apply();
         }
       }
 

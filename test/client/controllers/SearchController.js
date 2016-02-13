@@ -108,7 +108,6 @@ describe('Search Controller', function(){
 
       expect(searchCtrl.pins).not.be.empty;
       expect(searchCtrl.pins).to.be.instanceOf(Array);
-      expect(searchCtrl.places).to.be.empty;
 
       expect(mockPinService.searchPins.calledWith(searchParams)).to.be.true;
     });
