@@ -16,9 +16,10 @@
         p The place you're looking for did not produce a results.
       .row(ng-repeat="pin in searchCtrl.pins")
         .col-12-sm
-          .panel
-            #title-panel
-              img.img-circle(src="../images/avatar.png")
-              h4 {{pin.title}}
-            p.
-              {{pin.content}}
+          a(ui-sref="pin({pinId: pin._id})")
+            .panel
+              #title-panel
+                img.img-circle(src="../images/avatar.png")
+                h4 {{pin.title}}
+              p.
+                {{pin.content}}

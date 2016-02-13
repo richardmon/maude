@@ -2,10 +2,10 @@
   'use strict';
 
   angular.module('maude')
-    .controller('SearchController', function($scope, $window, $state, pin){
+    .controller('SearchController', function($scope, $window, $state, pin, places){
       var vm = this;
       vm.pins = [];
-      vm.places = [];
+      vm.places = places.places || [];
       vm.openPin = openPin;
       vm.search = search;
 
@@ -39,8 +39,13 @@
             var searchBox = new google.maps.places.SearchBox(input);
             searchBox.addListener('places_changed', function(){
               vm.places = searchBox.getPlaces();
+              places.places = vm.places;
               vm.search();
             });
+          }
+
+          if (places.places.length){
+            vm.search();
           }
 
           initMap();
