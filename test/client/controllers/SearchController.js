@@ -122,6 +122,6 @@ describe('Search Controller', function(){
 
     expect(state.current.name).to.be.equal('search');
     expect(stateParams.input).to.be.equal(input);
-  })
+  });
 
 });

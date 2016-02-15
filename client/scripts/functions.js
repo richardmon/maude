@@ -15,11 +15,6 @@
         $('.navbar').removeClass('affix');
       }
 
-      if(headerHeight && scroll > headerHeight*0.6){
-        console.log('show');
-      }
-
-
       // Parallax Header
          $('.header-content').css({
            'transform' : 'translate(0px, '+ scroll/5 + '%)'
