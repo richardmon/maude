@@ -5,6 +5,8 @@
 
       var scroll = $(this).scrollTop();
 
+      var headerHeight = $('header').outerHeight();
+
       //Navbar effect
       if(scroll){
         $('.navbar').addClass('affix');
@@ -12,6 +14,11 @@
       else{
         $('.navbar').removeClass('affix');
       }
+
+      if(headerHeight && scroll > headerHeight*0.6){
+        console.log('show');
+      }
+
 
       // Parallax Header
          $('.header-content').css({

@@ -12,7 +12,7 @@
         templateUrl: 'views/home.html'
       })
       .state('search', {
-        url: '/search',
+        url: '/search?input',
         templateUrl : 'views/search.html',
         controller: 'SearchController',
         controllerAs : 'searchCtrl'

@@ -73,75 +73,73 @@ describe('Pin Controller', function(){
     });
   }));
 
-  describe('Pin Controller', function(){
 
-    describe('Create Pin', function(){
-      it('should create a pin and redirect to it if success', function(){
-        sinon.spy(mockPinService, 'createPin');
-        var valid = true;
+  describe('Create Pin', function(){
+    it('should create a pin and redirect to it if success', function(){
+      sinon.spy(mockPinService, 'createPin');
+      var valid = true;
 
-        pinCtrl.create(valid, pinModel);
-        deferred.resolve(pinResponse);
+      pinCtrl.create(valid, pinModel);
+      deferred.resolve(pinResponse);
 
-        scope.$digest();
+      scope.$digest();
 
-        expect(state.current.name).to.equal('pin');
-        expect(pinCtrl.errorCreatingPin).to.be.false;
-        expect(stateParams.pinId).to.equal(pinResponse._id.toString());
-        expect(mockPinService.createPin.calledWith(pinModel)).to.be.true;
+      expect(state.current.name).to.equal('pin');
+      expect(pinCtrl.errorCreatingPin).to.be.false;
+      expect(stateParams.pinId).to.equal(pinResponse._id.toString());
+      expect(mockPinService.createPin.calledWith(pinModel)).to.be.true;
 
-      });
-
-      it('should  a set errorCreatingPin to true if an error occurse on the creation of a pin', function(){
-        sinon.spy(mockPinService, 'createPin');
-        var valid = true;
-
-        pinCtrl.create(valid, pinModel);
-        deferred.reject(pinResponse);
-
-        scope.$digest();
-
-        expect(pinCtrl.errorCreatingPin).to.be.true;
-        expect(mockPinService.createPin.calledWith(pinModel)).to.be.true;
-
-      });
     });
 
-    describe('Pin Definition', function(){
-      var location;
-      beforeEach(function(){
-        // Mock expected entry
-        location = {
-          name: 'Location name',
-          Lat: 57.000,
-          Lng: -47.000
-        };
-        // Mock google maps API
-        pinCtrl.place = {
-          name: location.name,
-          geometry: {
-            location: {
-              lat: function(){},
-              lng: function(){}
-            }
+    it('should  a set errorCreatingPin to true if an error occurse on the creation of a pin', function(){
+      sinon.spy(mockPinService, 'createPin');
+      var valid = true;
+
+      pinCtrl.create(valid, pinModel);
+      deferred.reject(pinResponse);
+
+      scope.$digest();
+
+      expect(pinCtrl.errorCreatingPin).to.be.true;
+      expect(mockPinService.createPin.calledWith(pinModel)).to.be.true;
+
+    });
+  });
+
+  describe('Pin Definition', function(){
+    var location;
+    beforeEach(function(){
+      // Mock expected entry
+      location = {
+        name: 'Location name',
+        Lat: 57.000,
+        Lng: -47.000
+      };
+      // Mock google maps API
+      pinCtrl.place = {
+        name: location.name,
+        geometry: {
+          location: {
+            lat: function(){},
+            lng: function(){}
           }
-        };
-      });
+        }
+      };
+    });
 
-      it('should add a new location if the entry is valid', function(){
-        sinon.stub(pinCtrl.place.geometry.location,'lat').returns(location.Lat);
-        sinon.stub(pinCtrl.place.geometry.location,'lng').returns(location.Lng);
+    it('should add a new location if the entry is valid', function(){
+      sinon.stub(pinCtrl.place.geometry.location,'lat').returns(location.Lat);
+      sinon.stub(pinCtrl.place.geometry.location,'lng').returns(location.Lng);
 
-        expect(pinCtrl.pinModel.location).to.be.instanceOf(Array);
-        expect(pinCtrl.pinModel.location).to.be.empty;
-        expect(pinCtrl.locationInput).to.exist;
+      expect(pinCtrl.pinModel.location).to.be.instanceOf(Array);
+      expect(pinCtrl.pinModel.location).to.be.empty;
+      expect(pinCtrl.locationInput).to.exist;
 
-        pinCtrl.addLocationPinCreation();
+      pinCtrl.addLocationPinCreation();
 
-        expect(pinCtrl.locationInput).to.be.empty;
-        expect(pinCtrl.place).not.to.exist;
-        expect(pinCtrl.pinModel.location).to.contain(location);
-      });
+      expect(pinCtrl.locationInput).to.be.empty;
+      expect(pinCtrl.place).not.to.exist;
+      expect(pinCtrl.pinModel.location).to.contain(location);
     });
   });
 
@@ -169,5 +167,6 @@ describe('Pin Controller', function(){
       expect(mockPinService.getPin.called).to.be.true;
     });
   });
+
 
 });

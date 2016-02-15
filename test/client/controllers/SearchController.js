@@ -23,6 +23,7 @@ describe('Search Controller', function(){
   // This two beforeEach avoid problems with ui-router
   beforeEach(inject(function($templateCache) {
     $templateCache.put('views/pin.html','<div>blank or whatever</div>');
+    $templateCache.put('views/search.html','<div>blank or whatever</div>');
   }));
 
   beforeEach(inject(function($controller, $rootScope, $q, $httpBackend, $state, $stateParams){
@@ -112,5 +113,15 @@ describe('Search Controller', function(){
       expect(mockPinService.searchPins.calledWith(searchParams)).to.be.true;
     });
   });
+
+  it('should redirect to the search with the passed input', function(){
+    var input = 'some place';
+    searchCtrl.submit(input);
+
+    scope.$apply();
+
+    expect(state.current.name).to.be.equal('search');
+    expect(stateParams.input).to.be.equal(input);
+  })
 
 });
