@@ -13,11 +13,17 @@ describe('Pin Controller', function(){
 
   beforeEach(module('maude'));
 
+  /**
+   * Avoid the request to the server from the app and ui-router
+   **/
   beforeEach(inject(function($httpBackend, $templateCache){
     $httpBackend.whenGET('/auth/session').respond(200);
     $templateCache.put('views/pin.html','<div>blank or whatever</div>');
   }));
 
+  /**
+   * mocks the pin service
+   **/
   beforeEach(function(){
     mockPinService = {
       createPin: function(){
@@ -140,6 +146,38 @@ describe('Pin Controller', function(){
       expect(pinCtrl.locationInput).to.be.empty;
       expect(pinCtrl.place).not.to.exist;
       expect(pinCtrl.pinModel.location).to.contain(location);
+    });
+
+    it('should reject a new location if the entry is invalid', function(){
+      sinon.stub(pinCtrl.place.geometry.location,'lat').returns(location.Lat);
+      sinon.stub(pinCtrl.place.geometry.location,'lng').returns(location.Lng);
+
+      expect(pinCtrl.pinModel.location).to.be.instanceOf(Array);
+      expect(pinCtrl.pinModel.location).to.be.empty;
+
+      // Place doesn't exist
+      pinCtrl.place = null;
+
+      pinCtrl.addLocationPinCreation();
+
+      expect(pinCtrl.pinModel.location).to.be.empty;
+    });
+
+    it('should reject location if already exist', function(){
+      sinon.stub(pinCtrl.place.geometry.location,'lat').returns(location.Lat);
+      sinon.stub(pinCtrl.place.geometry.location,'lng').returns(location.Lng);
+
+      var place = pinCtrl.place;
+      pinCtrl.addLocationPinCreation();
+
+      expect(pinCtrl.pinModel.location.length).to.be.equal(1);
+
+      // Same place
+      pinCtrl.place = place;
+
+      pinCtrl.addLocationPinCreation();
+
+      expect(pinCtrl.pinModel.location.length).to.be.equal(1);
     });
   });
 

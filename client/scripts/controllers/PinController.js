@@ -46,11 +46,15 @@
           Lat: vm.place.geometry.location.lat(),
           Lng: vm.place.geometry.location.lng()
         };
-        if (vm.pinModel.location.indexOf(location) === -1){
+        if (!vm.pinModel.location.some(locationExist)){
           vm.pinModel.location.push(location);
         }
         vm.locationInput = '';
         vm.place = null;
+
+        function locationExist(loc){
+          return angular.equals(loc, location);
+        }
       }
 
       function activate(){
