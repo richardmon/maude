@@ -20,7 +20,6 @@
     }
 
     function loginLocalComplete(user){
-      $location.path('/');
       //Hide de modal window using jquery
       angular.element('#signin-modal').modal('hide');
     }

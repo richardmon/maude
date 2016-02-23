@@ -3,26 +3,26 @@
   .row
     h1 {{ pinCtrl.pin.title }}
   .row
-    .col-xs-8.
-      {{ pinCtrl.pin.content }}
+    .col-xs-8.pin-content
+      | {{ pinCtrl.pin.content }}
 
     .col-xs-4.avatar
       img.img-responsive( src="../images/avatar.png" height="100" width="100")
 
   .row
-    .col-sm-offset-2.col-sm-8
-      img.gallery-pin.img-responsive( src="../images/avatar.png" )
+    .col-xs-offset-2.col-xs-8
+      img.img-responsive( src="../images/avatar.png" )
   hr
   .row
-    .col-xs-offset-2.col-xs-2
+    .col-sm-offset-2.col-xs-3.col-sm-2
       a.thumbnail
         img( src="../images/avatar.png" )
-    .col-xs-2
+    .col-xs-3.col-sm-2
       a.thumbnail
         img( src="../images/avatar.png" )
-    .col-xs-2
+    .col-xs-3.col-sm-2
       a.thumbnail
         img( src="../images/avatar.png" )
-    .col-xs-2
+    .col-xs-3.col-sm-2
       a.thumbnail
         img( src="../images/avatar.png" )
