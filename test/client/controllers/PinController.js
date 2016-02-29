@@ -47,6 +47,12 @@ describe('Pin Controller', function(){
         Lat: '123',
         Lng: '124'
       }],
+      images: [
+        'image1',
+        new Blob(),// image 2
+        'image3',
+        new Blob() // image 4
+      ]
     };
     //mock user
     user = {
@@ -65,6 +71,12 @@ describe('Pin Controller', function(){
         Lat: '123',
         Lng: '124'
       }],
+      images: [
+        'image1',
+        'image2',
+        'image3',
+        'image4'
+      ]
     };
     q = $q;
     scope = $rootScope.$new();
@@ -178,6 +190,61 @@ describe('Pin Controller', function(){
       pinCtrl.addLocationPinCreation();
 
       expect(pinCtrl.pinModel.location.length).to.be.equal(1);
+    });
+
+    it('should add a new image if loaded', function(){
+      expect(pinCtrl.pinModel.images).to.exist;
+      expect(pinCtrl.pinModel.images).to.be.empty;
+
+      var file = new Blob(); // creates a file
+
+      pinCtrl.addImagePinCreation(file);
+
+      expect(pinCtrl.pinModel.images.length).to.be.equal(1);
+      expect(pinCtrl.imageDuplicated).to.be.false;
+      expect(pinCtrl.fullImages).to.be.false;
+      expect(pinCtrl.imageInput).to.be.empty;
+    });
+
+    it('should not add image if null',  function(){
+      expect(pinCtrl.pinModel.images).to.be.empty;
+
+      var file = null;
+
+      pinCtrl.addImagePinCreation(file);
+      expect(pinCtrl.pinModel.images.length).to.be.empty;
+    });
+
+    it('should not add the same image twice', function(){
+      var file = new Blob(); // creates a file
+      pinCtrl.addImagePinCreation(file);
+      pinCtrl.addImagePinCreation(file);
+
+      expect(pinCtrl.pinModel.images.length).to.be.equal(1);
+      expect(pinCtrl.imageDuplicated).to.be.true;
+    });
+
+    it('should not add more than four elements', function(){
+      expect(pinCtrl.imageMaxLength).to.be.equal(4);
+
+      var file = new Blob(); // creates a file
+
+      // Change the file to be added
+      pinCtrl.addImagePinCreation(file.name = 'image1');
+
+      pinCtrl.addImagePinCreation(file.name = 'image2');
+
+      pinCtrl.addImagePinCreation(file.name = 'image3');
+
+      pinCtrl.addImagePinCreation(file.name = 'image4');
+
+      expect(pinCtrl.pinModel.images.length).to.be.equal(4);
+
+      // Not added
+      pinCtrl.addImagePinCreation(file.name = 'image5');
+
+      expect(pinCtrl.pinModel.images.length).to.be.equal(4);
+      expect(pinCtrl.fullImages).to.be.true;
     });
   });
 

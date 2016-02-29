@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  angular.module('maude', ['ngResource', 'ui.router'])
+  angular.module('maude', ['ngResource', 'ui.router', 'ngFileUpload'])
   // Facebook SDK, for more information https://developers.facebook.com/docs/javascript/howto/angularjs
   .run(function($window){
     $window.fbAsyncInit = function() {

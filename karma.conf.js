@@ -9,6 +9,7 @@ module.exports = function(config) {
       'client/components/angular-resource/angular-resource.min.js',
       'client/components/bootstrap/dist/js/bootstrap.min.js',
       'client/components/angular-mocks/angular-mocks.js',
+      'client/components/ng-file-upload/ng-file-upload.min.js',
       'client/scripts/**/*.js',
       'client/scripts/**.js',
       'test/client/**.js',

@@ -7,14 +7,21 @@
 
       // Pin Creation
       vm.pinModel = {
-        location: []
+        location: [],
+        images: []
       };
       vm.place;
-      vm.erroCreatingPin;
+      vm.errorCreatingPin = false;
       vm.contentMinLength = 100;
+      vm.imageMaxLength = 4;
+      vm.imageDuplicated = false;
+      vm.fullImages = false;
       vm.locationInput = '';
       vm.addLocationPinCreation = addLocationPinCreation;
+      vm.addImagePinCreation = addImagePinCreation;
       vm.create = create;
+      // Helpers for the view
+      vm.imageError = imageError;
 
       // Pin Description
       vm.pin;
@@ -55,6 +62,30 @@
         function locationExist(loc){
           return angular.equals(loc, location);
         }
+      }
+
+      function addImagePinCreation(image){
+        if (!image){
+          return;
+        }
+        if (vm.pinModel.images.length < vm.imageMaxLength &&
+            !vm.pinModel.images.some(imageExist)){
+          vm.pinModel.images.push(image);
+          vm.imageDuplicated = false;
+          vm.fullImages = false;
+        } else if (vm.pinModel.images.some(imageExist)){
+          vm.imageDuplicated = true;
+        } else if (vm.pinModel.images.length >= vm.imageMaxLength){
+          vm.fullImages = true;
+        }
+
+        function imageExist(img){
+          return angular.equals(img, image);
+        }
+      }
+
+      function imageError(){
+        return vm.imageDuplicated || vm.fullImages;
       }
 
       function activate(){
