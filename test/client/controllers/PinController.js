@@ -246,6 +246,54 @@ describe('Pin Controller', function(){
       expect(pinCtrl.pinModel.images.length).to.be.equal(4);
       expect(pinCtrl.fullImages).to.be.true;
     });
+
+    it('should remove the image in the passed position from the model', function(){
+      var file1 = new Blob(); // creates a file
+      var file2 = new Blob(); // creates a file
+      var file3 = new Blob(); // creates a file
+
+      file1.name = 'name1';
+      file2.name = 'name2';
+      file3.name = 'name3';
+
+      pinCtrl.addImagePinCreation(file1);
+      pinCtrl.addImagePinCreation(file2);
+      pinCtrl.addImagePinCreation(file3);
+
+      expect(pinCtrl.pinModel.images.length).to.be.equal(3);
+
+      pinCtrl.removeImage(1);
+
+      expect(pinCtrl.pinModel.images.length).to.be.equal(2);
+      expect(pinCtrl.pinModel.images).to.contain(file1);
+      expect(pinCtrl.pinModel.images).to.contain(file3);
+      expect(pinCtrl.pinModel.images).not.to.contain(file2);
+    });
+
+    it('should remove the location in the passed position from the model', function(){
+      var place = pinCtrl.place;
+      sinon.stub(pinCtrl.place.geometry.location,'lat').returns(location.Lat);
+      sinon.stub(pinCtrl.place.geometry.location,'lng').returns(location.Lng);
+      pinCtrl.place.name = 'location1';
+
+      pinCtrl.addLocationPinCreation();
+
+      pinCtrl.place = place;
+      pinCtrl.place.name = 'location2';
+
+      pinCtrl.addLocationPinCreation();
+
+      expect(pinCtrl.pinModel.location.length).to.be.equal(2);
+
+      var location1 = pinCtrl.pinModel.location[0];
+      var location2 = pinCtrl.pinModel.location[1];
+
+      pinCtrl.removeLocation(1);
+
+      expect(pinCtrl.pinModel.location.length).to.be.equal(1);
+      expect(pinCtrl.pinModel.location).to.contain(location1);
+      expect(pinCtrl.pinModel.location).not.to.contain(location2);
+    });
   });
 
   describe('Pin Description', function(){

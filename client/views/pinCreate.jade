@@ -10,7 +10,7 @@
     .form-group(ng-class="{'has-error': pinCreationForm.content.$invalid && pinCreationForm.$submitted}")
       label.control-label(for="input-content-pin") Description
       textarea#input-content-pin.form-control(name="content" ng-model="pinCtrl.pinModel.content" required ng-minlength="pinCtrl.contentMinLength")
-      p.help-block(ng-show="pinCreationForm.content.$error.required && pinCreationForm.$submitted") A title for your pin is required
+      p.help-block(ng-show="pinCreationForm.content.$error.required && pinCreationForm.$submitted") A description for your pin is required
       p.help-block(ng-show="pinCreationForm.content.$error.minlength && pinCreationForm.$submitted") The descripton should have at least {{ pinCtrl.contentMinLength }} characters
 
     .form-group(ng-class="{'has-error': !pinCtrl.pinModel.location.length && pinCreationForm.$submitted}")
@@ -27,7 +27,7 @@
           ul.list-group
             li.list-group-item(ng-repeat="places in pinCtrl.pinModel.location")
               | {{ places.name }}
-              i.fa.fa-times.delete-cross
+              i.fa.fa-times.delete-cross(ng-click="pinCtrl.removeLocation($index)")
 
     .form-group(ng-class="{'has-error': (!pinCtrl.pinModel.images.length && pinCreationForm.$submitted ) || (pinCtrl.imageError())}")
       label.control-label(for="insert-pin-images") Add image
@@ -46,7 +46,7 @@
             ul.list-group
               li.list-group-item(ng-repeat="image in pinCtrl.pinModel.images")
                 | {{ image.name }}
-                i.fa.fa-times.delete-cross
+                i.fa.fa-times.delete-cross(ng-click="pinCtrl.removeImage($index)")
 
     .col-xs-offset-11
       button.btn.btn-default.post-btn(type="submit") Post

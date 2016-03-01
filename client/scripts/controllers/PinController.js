@@ -18,7 +18,9 @@
       vm.fullImages = false;
       vm.locationInput = '';
       vm.addLocationPinCreation = addLocationPinCreation;
+      vm.removeLocation = removeLocation;
       vm.addImagePinCreation = addImagePinCreation;
+      vm.removeImage = removeImage;
       vm.create = create;
       // Helpers for the view
       vm.imageError = imageError;
@@ -64,6 +66,10 @@
         }
       }
 
+      function removeLocation(i){
+        vm.pinModel.location.splice(i,1);
+      }
+
       function addImagePinCreation(image){
         if (!image){
           return;
@@ -82,6 +88,10 @@
         function imageExist(img){
           return angular.equals(img, image);
         }
+      }
+
+      function removeImage(i){
+        vm.pinModel.images.splice(i,1);
       }
 
       function imageError(){
