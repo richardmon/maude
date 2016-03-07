@@ -11,8 +11,18 @@ module.exports = function(app){
       newPin.creator = req.user._id;
       newPin.title = req.body.title;
       newPin.content = req.body.content;
-      newPin.location = req.body.location.slice();
+
+      var locations = (req.body.location ? JSON.parse(req.body.location) : []);
+      newPin.location = locations.slice();
+
+      var files = req.files || [];
+      files.forEach(file => {
+        if (file.fieldname !== 'images') {return;}
+        newPin.images.push('uploads/' + file.filename);
+      });
+
       newPin.available = true;
+
 
       newPin.save(function(err){
         if (err){

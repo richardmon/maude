@@ -1,5 +1,6 @@
 var expect = require('chai').expect;
 var request = require('supertest');
+var path = require('path');
 
 var loggedIn = request.agent('http://localhost:3002');
 var noLoggedIn = request.agent('http://localhost:3002');
@@ -50,7 +51,10 @@ describe('Pins', function(){
     it('should create a pin', function(done){
       loggedIn.
         post('/pin')
-        .send(pin)
+        .field('title', pin.title)
+        .field('content', pin.content)
+        .field('location', JSON.stringify(pin.location))
+        .attach('images', path.normalize(path.join(__dirname, '../files/images/avatar.png')))
         .end(function(err, res){
           expect(res.statusCode).to.be.equal(200);
           expect(res.body._id).to.be.ok;
@@ -59,21 +63,52 @@ describe('Pins', function(){
           expect(res.body.location).to.be.instanceOf(Array);
           expect(res.body.location[0]).to.contain(pin.location[0]);
           expect(res.body.creator).to.be.equal(userId);
+          expect(res.body.images).not.to.be.empty;
           pinId = res.body._id;
           done();
         });
     });
 
-    it('should not allowed the creation of a pin', function(done){
+    describe('should not allowed the creation of a pin', function(){
+      it('should not create a pin if user is not logged in', function(done){
+        noLoggedIn
+          .post('/pin')
+          .field('title', pin.title)
+          .field('content', pin.content)
+          .field('location', JSON.stringify(pin.location))
+          .attach('images', path.normalize(path.join(__dirname, '../files/images/avatar.png')))
+          .expect(401)
+          .end(function(err, res){
+            expect(res.body).to.be.empty;
+            done();
+          });
+      });
 
-      noLoggedIn
-        .post('/pin')
-        .send(pin)
-        .expect(401)
-        .end(function(err, res){
-          expect(res.body).to.be.empty;
-          done();
-        });
+      it('should not create a pin if location is not provided', function(done){
+        loggedIn.
+          post('/pin')
+          .field('title', pin.title)
+          .field('content', pin.content)
+          .attach('images', path.normalize(path.join(__dirname, '../files/images/avatar.png')))
+          .expect(400)
+          .end(function(err, res){
+            expect(res.body.errors).to.exist;
+            done();
+          });
+      });
+
+      it('should not create a pin if images are not provided', function(done){
+        loggedIn.
+          post('/pin')
+          .field('title', pin.title)
+          .field('content', pin.content)
+          .field('location', JSON.stringify(pin.location))
+          .expect(400)
+          .end(function(err, res){
+            expect(res.body.errors).to.exist;
+            done();
+          });
+      });
     });
   });
 
@@ -82,7 +117,11 @@ describe('Pins', function(){
     before(function(done){
       loggedIn
         .post('/pin')
-        .send(pin)
+        .field('title', pin.title)
+        .field('content', pin.content)
+        .field('location', JSON.stringify(pin.location))
+        .attach('images', path.normalize(path.join(__dirname, '../files/images/avatar.png')))
+        .expect(200)
         .end(function(err, res){
           pinId = res.body._id;
           done();
@@ -121,17 +160,21 @@ describe('Pins', function(){
     before(function(done){
       loggedIn
         .post('/pin')
-        .send(pin)
+        .field('title', pin.title)
+        .field('content', pin.content)
+        .field('location', JSON.stringify(pin.location))
+        .attach('images', path.normalize(path.join(__dirname, '../files/images/avatar.png')))
         .expect(200)
         .end(function(err, res){
+          expect(res.body).not.to.be.empty;
           pinId = res.body._id;
           done();
         });
     });
 
     it('should return array of result', function(done){
-      var queryjtring = require('querystring');
-      var query = queryjtring.stringify(pin.location[0]);
+      var querystring = require('querystring');
+      var query = querystring.stringify(pin.location[0]);
       noLoggedIn
         .get('/pins?' + query)
         .expect(200)

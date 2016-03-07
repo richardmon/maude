@@ -2,6 +2,19 @@
 
 module.exports = function(app){
   var passport = require('passport');
+  var multer = require('multer');
+
+  var crypto = require('crypto');
+  var path = require('path');
+  var storage = multer.diskStorage({ // will setup the name with the proper file extention
+    destination: './client/uploads',
+    filename: function (req, file, cb) {
+      crypto.pseudoRandomBytes(16, function (err, raw) {
+        cb(null, raw.toString('hex') + Date.now() + path.extname(file.originalname));
+      });
+    }
+  });
+  var upload = multer({storage: storage});
 
   // User
   var user = app.controllers.User;
@@ -33,7 +46,7 @@ module.exports = function(app){
 
   // Pins
   var pin = app.controllers.Pin;
-  app.post('/pin', isLoggeIn,  pin.create);
+  app.post('/pin', isLoggeIn, upload.array('images'),  pin.create);
   app.get('/pin/:pinId', pin.getPin);
   app.get('/pins', pin.searchPins);
 

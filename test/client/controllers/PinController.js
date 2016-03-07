@@ -9,6 +9,7 @@ describe('Pin Controller', function(){
   var stateParams;
   var pinModel;
   var pinResponse;
+  var pinCretionResponse;
   var user;
 
   beforeEach(module('maude'));
@@ -78,6 +79,16 @@ describe('Pin Controller', function(){
         'image4'
       ]
     };
+
+    // mocks the answer for pin creation
+    pinCretionResponse = {
+      data: pinResponse,
+      status: 200,
+      statusText: 'OK',
+      config : {},
+      headers: function(){}
+    };
+
     q = $q;
     scope = $rootScope.$new();
     scope.user = user;
@@ -98,13 +109,13 @@ describe('Pin Controller', function(){
       var valid = true;
 
       pinCtrl.create(valid, pinModel);
-      deferred.resolve(pinResponse);
+      deferred.resolve(pinCretionResponse);
 
       scope.$digest();
 
       expect(state.current.name).to.equal('pin');
       expect(pinCtrl.errorCreatingPin).to.be.false;
-      expect(stateParams.pinId).to.equal(pinResponse._id.toString());
+      expect(stateParams.pinId).to.equal(pinCretionResponse.data._id.toString());
       expect(mockPinService.createPin.calledWith(pinModel)).to.be.true;
 
     });
@@ -114,7 +125,7 @@ describe('Pin Controller', function(){
       var valid = true;
 
       pinCtrl.create(valid, pinModel);
-      deferred.reject(pinResponse);
+      deferred.reject(pinCretionResponse);
 
       scope.$digest();
 

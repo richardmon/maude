@@ -40,7 +40,7 @@
         pin.createPin(pinModel)
           .then(function(pinResponse){
             vm.errorCreatingPin = false;
-            $state.go('pin', {pinId: pinResponse._id});
+            $state.go('pin', {pinId: pinResponse.data._id});
           }, function(err){
             vm.errorCreatingPin = true;
           });

@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('maude')
-  .factory('pin', function UserFactory($resource){
+  .factory('pin', function UserFactory($resource, Upload){
     var resource = $resource('/pin/:pinId');
     var service = {
       searchPins : searchPins,
@@ -19,7 +19,17 @@
     }
 
     function createPin(pinModel){
-      return resource.save(pinModel).$promise;
+      var obj = {};
+      angular.copy(pinModel, obj);
+      obj.location = Upload.json(obj.location);
+      obj.images = pinModel.images;
+
+      var upload = Upload.upload({
+        url: 'pin',
+        data: obj,
+        arrayKey: ''
+      });
+      return upload;
     }
 
     function getPin(pinId){
