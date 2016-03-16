@@ -37,9 +37,11 @@
           .col-xs-8
             .btn.btn-default.col-xs-3(ngf-select="pinCtrl.addImagePinCreation($file)" ng-model="image" ngf-pattern="'image/*'" ng-accept="'image/*'") Load Image
             .col-xs-offset-4(ng-show="image.name"){{image.name}}
-              p.help-block(ng-show="!pinCtrl.pinModel.images.length && pinCreationForm.$submitted") You should add at least one image
-              p.help-block(ng-show="pinCtrl.imageDuplicated") The image is duplicated
-              p.help-block(ng-show="pinCtrl.fullImages") you can only upload {{pinCtrl.imageMaxLength}} images
+        .row
+          .col-xs-offset-1
+            p.help-block(ng-show="!pinCtrl.pinModel.images.length && pinCreationForm.$submitted") You should add at least one image
+            p.help-block(ng-show="pinCtrl.imageDuplicated") The image is duplicated
+            p.help-block(ng-show="pinCtrl.fullImages") you can only upload {{pinCtrl.imageMaxLength}} images
 
         .row
           .col-xs-4

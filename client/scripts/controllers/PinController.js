@@ -24,8 +24,10 @@
       vm.create = create;
       // Helpers for the view
       vm.imageError = imageError;
+      vm.visibleImage;
 
       // Pin Description
+      vm.getVisibleImage = getVisibleImage;
       vm.pin;
 
       activate();
@@ -33,7 +35,7 @@
       /////////////////////////
 
       function create(valid, pinModel){
-        if (!valid || !pinModel.location.length){
+        if (!valid || vm.imageError() || !pinModel.location.length){
           vm.errorCreatingPin = true;
           return;
         }
@@ -93,6 +95,16 @@
       function removeImage(i){
         vm.pinModel.images.splice(i,1);
       }
+
+      function getVisibleImage(i){
+        var imageSelected = i || 0;
+        if (vm.pin && vm.pin.images){
+          vm.visibleImage = vm.pin.images[imageSelected];
+          return vm.visibleImage;
+        }
+      }
+
+      //Helpers
 
       function imageError(){
         return vm.imageDuplicated || vm.fullImages;

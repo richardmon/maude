@@ -330,6 +330,18 @@ describe('Pin Controller', function(){
       expect(pinCtrl.pin).to.be.equal(pinResponse);
       expect(mockPinService.getPin.called).to.be.true;
     });
+
+    it('should return the selected picture to be displayed', function(){
+      expect(pinCtrl.getVisibleImage()).to.be.undefined;
+
+      deferred.resolve(pinResponse);
+      scope.$digest();
+
+      expect(pinCtrl.getVisibleImage()).to.be.equal(pinResponse.images[0]);
+      expect(pinCtrl.visibleImage).to.be.equal(pinResponse.images[0]);
+      expect(pinCtrl.getVisibleImage(2)).to.be.equal(pinResponse.images[2]);
+      expect(pinCtrl.visibleImage).to.be.equal(pinResponse.images[2]);
+    });
   });
 
 

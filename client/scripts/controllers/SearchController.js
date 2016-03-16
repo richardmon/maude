@@ -11,8 +11,10 @@
       vm.search = search;
       vm.submit = submit;
       vm.inputExist = inputExist;
+      vm.searchFulfill = false;
 
       activate();
+
 
       //////////////////////
 
@@ -28,9 +30,11 @@
 
           pin.searchPins(searchParams).then(function(pinDataArray){
             vm.pins = pinDataArray;
+            vm.searchFulfill = true;
           });
         } else {
           vm.pins = [];
+          vm.searchFulfill = true;
         }
       }
 
@@ -67,9 +71,15 @@
           }
 
           function callback(results, status){
+            vm.searchFullfil = false;
             if (status === google.maps.places.PlacesServiceStatus.OK){
               vm.places = results;
               vm.search();
+            } else if (status === google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
+              vm.searchFulfill = true;
+              try {
+                $scope.$apply();
+              } catch (e){ /* alredy running a digest cycle */}
             }
           }
 

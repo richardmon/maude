@@ -7,22 +7,14 @@
       | {{ pinCtrl.pin.content }}
 
     .col-xs-4.avatar
-      img.img-responsive( src="../images/avatar.png" height="100" width="100")
+      img.img-responsive( src="../images/avatar.png")
 
   .row
     .col-xs-offset-2.col-xs-8
-      img.img-responsive( src="../images/avatar.png" )
+      img.img-responsive(src="{{pinCtrl.visibleImage || pinCtrl.getVisibleImage()}}")
   hr
   .row
-    .col-sm-offset-2.col-xs-3.col-sm-2
-      a.thumbnail
-        img( src="../images/avatar.png" )
-    .col-xs-3.col-sm-2
-      a.thumbnail
-        img( src="../images/avatar.png" )
-    .col-xs-3.col-sm-2
-      a.thumbnail
-        img( src="../images/avatar.png" )
-    .col-xs-3.col-sm-2
-      a.thumbnail
-        img( src="../images/avatar.png" )
+    div(class="col-xs-offset-{{6 - pinCtrl.pin.images.length}}")
+      .col-xs-3.col-sm-2.image-container(ng-repeat="image in pinCtrl.pin.images")
+        a.thumbnail
+          img(ng-src="{{image}}" ng-click="pinCtrl.getVisibleImage($index)")

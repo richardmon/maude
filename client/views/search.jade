@@ -13,7 +13,7 @@
 
   .result-display-pins
     .container
-      .row(ng-show="!searchCtrl.pins.length && searchCtrl.inputExist()")
+      .row(ng-show="!searchCtrl.pins.length && searchCtrl.inputExist() && searchCtrl.searchFulfill")
         h2 We sorry
         p The place you're looking for did not produce a results.
       .row(ng-repeat="pin in searchCtrl.pins")
