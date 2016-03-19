@@ -26,6 +26,14 @@ var User = new Schema({
     token: String,
     name: String,
   },
+
+  sex: {
+    type: String,
+    enum: ['MALE', 'FEMALE', 'OTHER'],
+    default: 'OTHER'
+  },
+  birth: Date,
+  description: String,
   provider: String
 });
 
@@ -52,6 +60,19 @@ User.virtual('user_details')
           'picture': this.picture
         };
 });
+
+User.virtual('user_profile')
+.get(function(){
+  return {
+    '_id': this._id,
+    'picture': this.picture,
+    'name': this[this.provider].name,
+    'email': this[this.provider].email,
+    'sex': this.sex,
+    'birth': this.birth
+  };
+});
+
 /**
  *Validate
  **/
@@ -114,6 +135,7 @@ User.pre('save', function(next) {
     return next();
   }
 
+  this.birth = new Date();
   if (this.provider === 'local'){
     if (notNull(this.local.password)) {
       next();

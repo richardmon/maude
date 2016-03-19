@@ -17,13 +17,17 @@ module.exports = function(app){
   var upload = multer({storage: storage});
 
   // User
-  var user = app.controllers.User;
+  var user = app.controllers.user;
   app.post('/user', user.create);
   app.get('/user/check_email/:email', user.exist);
   app.get('/user/:userId', user.info);
 
+  // Profile
+  var profile = app.controllers.profile;
+  app.get('/profile/:userId', profile.get);
+
   //Session
-  var session = app.controllers.Session;
+  var session = app.controllers.session;
   app.get('/auth/session', isLoggeIn, session.session);
   app.post('/auth/session', session.login);
   app.delete('/auth/session', session.logout);
@@ -45,7 +49,7 @@ module.exports = function(app){
       }));
 
   // Pins
-  var pin = app.controllers.Pin;
+  var pin = app.controllers.pin;
   app.post('/pin', isLoggeIn, upload.array('images'),  pin.create);
   app.get('/pin/:pinId', pin.getPin);
   app.get('/pins', pin.searchPins);

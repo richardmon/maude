@@ -2,8 +2,9 @@
 
 module.exports = function(app){
   return{
-    User : require('./users')(app),
-    Session: require('./session')(app),
-    Pin: require('./pins')(app)
+    user : require('./users')(app),
+    session: require('./session')(app),
+    pin: require('./pins')(app),
+    profile: require('./profile')(app)
   };
 };
