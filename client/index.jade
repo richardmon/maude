@@ -40,6 +40,7 @@ body(ng-app="maude")
 
   .views(ui-view)
 
+  div(ng-controller="ProfileController")
   footer
     .container.footer-content
       .row
@@ -85,11 +86,13 @@ script( src="scripts/services/user.js" )
 script( src="scripts/services/session.js" )
 script( src="scripts/services/config.js" )
 script( src="scripts/services/pin.js" )
+script( src="scripts/services/profile.js" )
 script( src="scripts/controllers/SignupController.js" )
 script( src="scripts/controllers/LoginController.js" )
 script( src="scripts/controllers/LogoutController.js" )
 script( src="scripts/controllers/SearchController.js" )
 script( src="scripts/controllers/PinController.js" )
 script( src="scripts/controllers/SearchButtonController.js" )
+script( src="scripts/controllers/ProfileController.js" )
 //endbuild
 script( src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCoJDaCSGHU8asCLZWfJ-HKQ13AZbRqH8w&libraries=places" )

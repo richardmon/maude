@@ -1,7 +1,6 @@
 'use strict';
 
 module.exports = function(app){
-  var assert = require('assert');
   var User = app.models.User;
   return {
 

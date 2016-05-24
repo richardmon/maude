@@ -29,6 +29,12 @@
         controller: 'PinController',
         controllerAs: 'pinCtrl'
       })
+      .state('profile', {
+        url: '/profile/me',
+        templateUrl: 'views/profileMe.html',
+        controller: 'ProfileController',
+        controllerAs : 'profileCtrl'
+      })
       .state('404', {
         url: '/404'
       });
