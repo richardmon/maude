@@ -32,8 +32,8 @@
       .state('profile', {
         url: '/profile/me',
         templateUrl: 'views/profileMe.html',
-        controller: 'ProfileController',
-        controllerAs : 'profileCtrl'
+        controller: 'ProfileMeController',
+        controllerAs : 'profileMeCtrl'
       })
       .state('404', {
         url: '/404'

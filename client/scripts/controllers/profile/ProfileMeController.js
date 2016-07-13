@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('maude')
-    .controller('ProfileMeController', function ProfileController($rootScope, profile) {
+    .controller('ProfileMeController', function ProfileMeController($rootScope, profile) {
       var vm = this;
       vm.profile;
       vm.getMe = getMe;

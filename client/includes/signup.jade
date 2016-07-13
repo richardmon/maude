@@ -41,9 +41,9 @@ div(ng-controller="SignupController as signupCtrl")
           .row
             .col-xs-12
               | Sign up with 
-              a(href="#")  Facebook
+              a(href="#" ng-click="signupCtrl.authWithFacebook()")  Facebook
               |  or 
-              a(href="#") Twitter
+              a(href="/auth/twitter") Twitter
           .modal-or-separator
             span or
             hr

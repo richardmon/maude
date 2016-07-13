@@ -14,7 +14,7 @@ var env = {
       'mongodb://localhost/maude-test',
   },
   production: {
-    port: process.env.PORT || 3000,
+    port: process.env.PORT || 80,
     db:   process.env.MONGOLAB_URI ||
       process.env.MONGOHQ_URL ||
       'mongodb://localhost/maude-production',

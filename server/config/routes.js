@@ -54,6 +54,10 @@ module.exports = function(app){
   app.get('/pin/:pinId', pin.getPin);
   app.get('/pins', pin.searchPins);
 
+  //Comments
+  var comment = app.controllers.comment;
+  app.post('/comment', isLoggeIn, comment.create);
+
   app.get('/*', function(req, res){
     if (req.user) {
       res.cookie('user', JSON.stringify(req.user.user_info));
