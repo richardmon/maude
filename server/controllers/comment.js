@@ -26,17 +26,17 @@ module.exports = function(app){
     },
 
     /**
-     * Returns pin information
+     * Returns comment based on id
      **/
-    // getPin: function(req, res){
-    //   var pinId = req.params.pinId;
-    //   Pin.findById(pinId, function(err, pin){
-    //     if (err){
-    //       return res.sendStatus(404);
-    //     }
-    //     return res.json(pin);
-    //   });
-    // },
+    get: function(req, res){
+      var commentId = req.params.commentId;
+      Comment.findById(commentId, function(err, comment){
+        if (err){
+          return res.sendStatus(404);
+        }
+        return res.json(comment);
+      });
+    },
 
     // /**
     //  * Search for pins matching the query

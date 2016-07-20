@@ -57,6 +57,7 @@ module.exports = function(app){
   //Comments
   var comment = app.controllers.comment;
   app.post('/comment', isLoggeIn, comment.create);
+  app.get('/comment/:commentId', comment.get);
 
   app.get('/*', function(req, res){
     if (req.user) {
