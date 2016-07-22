@@ -21,7 +21,11 @@ var Pin = new Schema({
     Lng: {type: String, required: true}
   }],
   images: [String],
-  available: Boolean
+  available: Boolean,
+  comments: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Comment'
+  }]
 });
 
 /**

@@ -1,3 +1,5 @@
+'use strict';
+
 var expect = require('chai').expect;
 var request = require('supertest');
 var path = require('path');
@@ -11,7 +13,6 @@ var fakeUser = {
   password: '1a2b3c4d5e6'
 };
 
-var pinId;
 
 describe('Pins', function(){
   var pin = {
@@ -24,6 +25,7 @@ describe('Pins', function(){
     }]
   };
   var userId;
+  var pinId;
 
   before(function(done){
     loggedIn
@@ -36,14 +38,15 @@ describe('Pins', function(){
       });
   });
 
-  afterEach('Clean db', function(){
+  after('Clean db', function(){
     process.env.NODE_ENV = 'test';
     var mongoose = require('mongoose');
     var config = require('../../../server/config');
     require('../../../server/models/pin');
 
     var db = mongoose.createConnection(config.db);
-    db.model('Pin').remove({_id : pinId}).exec();
+    db.model('Pin').remove({}).exec();
+    db.model('Comment').remove({}).exec();
   });
 
   describe('POST pin creation', function(){
@@ -109,6 +112,89 @@ describe('Pins', function(){
             done();
           });
       });
+    });
+  });
+
+  describe('POST comments in pins', function(){
+    var commentId;
+
+    before(function(done){
+      loggedIn
+        .post('/pin')
+        .field('title', pin.title)
+        .field('content', pin.content)
+        .field('location', JSON.stringify(pin.location))
+        .attach('images', path.normalize(path.join(__dirname, '../files/images/avatar.png')))
+        .expect(200)
+        .end(function(err, res){
+          pinId = res.body._id;
+          done();
+        });
+    });
+
+    before(function(done){
+      var comment = {
+        creator: userId,
+        content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        title: 'Title',
+        replies: []
+      };
+
+      loggedIn.
+        post('/comment').
+        send(comment).
+        end(function(err, res){
+          expect(res.statusCode).to.be.equal(200);
+          expect(res.body._id).to.exist;
+          commentId = res.body._id;
+          done();
+        });
+    });
+
+    it('should add a comment with the comment id and the pin id if the user id logged in', function(done){
+      loggedIn.
+        post('/pin/'+ pinId + '/comment').
+        send({'commentId': commentId}).
+        end(function(err, res){
+          expect(res.statusCode).to.be.equal(200);
+          expect(res.body.comments).to.contain(commentId);
+          done();
+        });
+    });
+
+    it('should not add a comment if the user is not logged in', function(done){
+      noLoggedIn.
+        post('/pin/' + pinId + '/comment').
+        send({'commentId': commentId}).
+        end(function(err, res){
+          expect(res.body).to.be.empty;
+          expect(res.statusCode).to.be.equal(401);
+          done();
+        });
+    });
+
+    it('should not add a comment if the pin does not exist', function(done){
+      var wrongPinId = 'wrongPinId'
+
+      loggedIn.
+        post('/pin/' + wrongPinId + '/comment').
+        send({'commentId': commentId}).
+        end(function(err, res){
+          expect(res.statusCode).to.be.equal(404);
+          done();
+        });
+    });
+
+    it('should not add a comment if the comment does not exist', function(done){
+      var wrongComment = 'Wrongcomment123abc';
+
+      loggedIn.
+        post('/pin/' + pinId + '/comment').
+        send({'commentId': wrongComment}).
+        end(function(err, res){
+          expect(res.statusCode).to.be.equal(400);
+          done();
+        });
     });
   });
 

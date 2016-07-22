@@ -50,7 +50,8 @@ module.exports = function(app){
 
   // Pins
   var pin = app.controllers.pin;
-  app.post('/pin', isLoggeIn, upload.array('images'),  pin.create);
+  app.post('/pin', isLoggeIn, upload.array('images'), pin.create);
+  app.post('/pin/:pinId/comment', isLoggeIn, pin.addComment);
   app.get('/pin/:pinId', pin.getPin);
   app.get('/pins', pin.searchPins);
 

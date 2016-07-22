@@ -2,6 +2,7 @@
 
 module.exports = function(app){
   var Pin = app.models.Pin;
+  var Comment = app.models.Comment;
   return {
     /**
      * Creates a new pin
@@ -29,6 +30,36 @@ module.exports = function(app){
           return res.status(400).json(err);
         }
         return res.json(newPin);
+      });
+    },
+
+    /**
+     * Adds a comment to a pin
+     **/
+    addComment: function(req, res){
+      var pinId = req.params.pinId;
+      var commentId = req.body.commentId;
+      Pin.findById(pinId, function(err, pin){
+        if(err){
+          return res.status(404).json(err);
+        }
+        if(!pin){
+          return res.sendStatus(404);
+        }
+
+        Comment.findById(commentId, function(err, comment){
+          if(err || !comment){
+            return res.sendStatus(400);
+          }
+          pin.comments.push(commentId);
+
+          pin.save(function(err, pinNewComment){
+            if(err){
+              return res.status(401).json(err);
+            }
+            return res.json(pinNewComment);
+          });
+        })
       });
     },
 
