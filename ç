@@ -50,13 +50,13 @@ module.exports = function(app){
      * Search for pins matching the query
      **/
     searchPins: function(req, res){
-      var lat = req.query.lat;
-      var lng = req.query.lng;
+      var Lat = req.query.Lat;
+      var Lng = req.query.Lng;
 
       Pin.find({
         $and: [
-          {'location.lat': lat},
-          {'location.lng': lng}
+          {'location.Lat': Lat},
+          {'location.Lng': Lng}
         ]
       }, function(err, pins){
         return res.json(pins);
@@ -81,11 +81,6 @@ module.exports = function(app){
           if(err || !comment){
             return res.sendStatus(400);
           }
-
-          if(pin.comments.indexOf(commentId) > -1){
-            return res.json(pin);
-          }
-
           pin.comments.push(commentId);
 
           pin.save(function(err, pinNewComment){
@@ -106,24 +101,23 @@ module.exports = function(app){
       var commentId = req.params.commentId;
       Pin.findById(pinId, function(err, pin){
         if(err || !pin){
-          return res.sendStatus(404);
+          return res.sendStatus(400);
         }
-        Comment.findById(commentId, function(err, comment){
-          if (req.user && req.user._id && comment.creator.equals(req.user._id)){
 
-            pin.comments.pull(comment._id);
+        var positionFound = pin.comments.indexOf(commentId);
 
-            pin.save(function(err, pinDeletedComment){
-              if(err || !pinDeletedComment){
-                return res.sendStatus(400);
-              };
-              return res.json(pinDeletedComment);
-            });
-          } else {
-            return res.status(403).json(pin);
-          }
-        });
+        if(positionFound !== -1){
+          pin.comments.splice(positionFound, 1);
+          pin.save(function(err, pinDeletedComment){
+            if(err || !pinDeletedComment){
+              return res.sendStatus(404);
+            }
+            // return res.json(pinDeletedComment);
+          });
+        }
+        return res.sendStatus(400);
       });
     }
+
   };
 };

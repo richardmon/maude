@@ -54,6 +54,7 @@ module.exports = function(app){
   app.post('/pin/:pinId/comment', isLoggeIn, pin.addComment);
   app.get('/pin/:pinId', pin.getPin);
   app.get('/pins', pin.searchPins);
+  app.delete('/pin/:pinId/comment/:commentId', pin.deleteComment);
 
   //Comments
   var comment = app.controllers.comment;

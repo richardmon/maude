@@ -115,88 +115,6 @@ describe('Pins', function(){
     });
   });
 
-  describe('POST comments in pins', function(){
-    var commentId;
-
-    before(function(done){
-      loggedIn
-        .post('/pin')
-        .field('title', pin.title)
-        .field('content', pin.content)
-        .field('location', JSON.stringify(pin.location))
-        .attach('images', path.normalize(path.join(__dirname, '../files/images/avatar.png')))
-        .expect(200)
-        .end(function(err, res){
-          pinId = res.body._id;
-          done();
-        });
-    });
-
-    before(function(done){
-      var comment = {
-        creator: userId,
-        content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-        title: 'Title',
-        replies: []
-      };
-
-      loggedIn.
-        post('/comment').
-        send(comment).
-        end(function(err, res){
-          expect(res.statusCode).to.be.equal(200);
-          expect(res.body._id).to.exist;
-          commentId = res.body._id;
-          done();
-        });
-    });
-
-    it('should add a comment with the comment id and the pin id if the user id logged in', function(done){
-      loggedIn.
-        post('/pin/'+ pinId + '/comment').
-        send({'commentId': commentId}).
-        end(function(err, res){
-          expect(res.statusCode).to.be.equal(200);
-          expect(res.body.comments).to.contain(commentId);
-          done();
-        });
-    });
-
-    it('should not add a comment if the user is not logged in', function(done){
-      noLoggedIn.
-        post('/pin/' + pinId + '/comment').
-        send({'commentId': commentId}).
-        end(function(err, res){
-          expect(res.body).to.be.empty;
-          expect(res.statusCode).to.be.equal(401);
-          done();
-        });
-    });
-
-    it('should not add a comment if the pin does not exist', function(done){
-      var wrongPinId = 'wrongPinId'
-
-      loggedIn.
-        post('/pin/' + wrongPinId + '/comment').
-        send({'commentId': commentId}).
-        end(function(err, res){
-          expect(res.statusCode).to.be.equal(404);
-          done();
-        });
-    });
-
-    it('should not add a comment if the comment does not exist', function(done){
-      var wrongComment = 'Wrongcomment123abc';
-
-      loggedIn.
-        post('/pin/' + pinId + '/comment').
-        send({'commentId': wrongComment}).
-        end(function(err, res){
-          expect(res.statusCode).to.be.equal(400);
-          done();
-        });
-    });
-  });
 
   describe('GET get pin', function(){
 
@@ -269,6 +187,160 @@ describe('Pins', function(){
           expect(res.body).not.to.be.empty;
           done();
         });
+    });
+  });
+
+  describe('Comments in pins',function(){
+    var commentId;
+
+    before(function(done){
+      loggedIn
+        .post('/pin')
+        .field('title', pin.title)
+        .field('content', pin.content)
+        .field('location', JSON.stringify(pin.location))
+        .attach('images', path.normalize(path.join(__dirname, '../files/images/avatar.png')))
+        .expect(200)
+        .end(function(err, res){
+          pinId = res.body._id;
+          done();
+        });
+    });
+
+    before(function(done){
+      var comment = {
+        creator: userId,
+        content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        title: 'Title',
+        replies: []
+      };
+
+      loggedIn.
+        post('/comment').
+        send(comment).
+        end(function(err, res){
+          expect(res.statusCode).to.be.equal(200);
+          expect(res.body._id).to.exist;
+          commentId = res.body._id;
+          done();
+        });
+    });
+
+    describe('POST comments in pins', function(){
+
+      it('should add a comment with the comment id and the pin id if the user id logged in', function(done){
+        loggedIn.
+          post('/pin/'+ pinId + '/comment').
+          send({'commentId': commentId}).
+          end(function(err, res){
+            expect(res.statusCode).to.be.equal(200);
+            expect(res.body.comments).to.contain(commentId);
+            done();
+          });
+      });
+
+      it('should not add a comment twice to a pin', function(done){
+        loggedIn.
+         post('/pin/'+ pinId + '/comment').
+         send({'commentId': commentId}).
+         end(function(err, res){
+           expect(res.statusCode).to.be.equal(200);
+           expect(res.body.comments).to.contain(commentId);
+           expect(res.body.comments.length).to.be.equal(1); // one means it wasn't added
+           done();
+         });
+      });
+
+      it('should not add a comment if the user is not logged in', function(done){
+        noLoggedIn.
+          post('/pin/' + pinId + '/comment').
+          send({'commentId': commentId}).
+          end(function(err, res){
+            expect(res.body).to.be.empty;
+            expect(res.statusCode).to.be.equal(401);
+            done();
+          });
+      });
+
+      it('should not add a comment if the pin does not exist', function(done){
+        var wrongPinId = 'wrongPinId';
+
+        loggedIn.
+          post('/pin/' + wrongPinId + '/comment').
+          send({'commentId': commentId}).
+          end(function(err, res){
+            expect(res.statusCode).to.be.equal(404);
+            done();
+          });
+      });
+
+      it('should not add a comment if the comment does not exist', function(done){
+        var wrongComment = 'Wrongcomment123abc';
+
+        loggedIn.
+          post('/pin/' + pinId + '/comment').
+          send({'commentId': wrongComment}).
+          end(function(err, res){
+            expect(res.statusCode).to.be.equal(400);
+            done();
+          });
+      });
+
+    });
+
+    describe('DELETE comments in pins', function(){
+      before(function(done){
+        loggedIn
+          .post('/pin')
+          .field('title', pin.title)
+          .field('content', pin.content)
+          .field('location', JSON.stringify(pin.location))
+          .attach('images', path.normalize(path.join(__dirname, '../files/images/avatar.png')))
+          .expect(200)
+          .end(function(err, res){
+            pinId = res.body._id;
+            done();
+          });
+      });
+
+      beforeEach(function(done){ // adds comment to the pin
+        loggedIn.
+          post('/pin/'+ pinId + '/comment').
+          send({'commentId': commentId}).
+          end(function(err, res){
+            done();
+          });
+      });
+
+      it('should delete a comment from a pin if the user that created it wants it', function(done){
+        loggedIn.
+          del('/pin/'+ pinId + '/comment/' + commentId).
+          expect(200, function(err, res){
+            expect(res.body.comments).not.to.contain(commentId);
+            done();
+          });
+      });
+
+      it('should not be able to delete a comment from a pin if is not creator', function(done){
+        var secondUser = request.agent('http://localhost:3002');
+        var fakeUser2 = { // User taken from seeder
+          email: 'test2@email.com',
+          password: '1a2b3c4d5e6'
+        };
+
+        secondUser
+          .post('/auth/session')
+          .send(fakeUser2)
+          .expect(200)
+          .end(function(err, res){ // Logged In
+            secondUser.
+              del('/pin/'+ pinId + '/comment/' + commentId).
+              expect(403, function(err, res){
+                expect(res.body.comments).to.contain(commentId);
+                done();
+              });
+          });
+      });
     });
   });
 });
