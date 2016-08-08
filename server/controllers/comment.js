@@ -63,6 +63,9 @@ module.exports = function(app){
       });
     },
 
+    /**
+     * Deletes a comment
+     **/
     delete: function(req, res){
       var commentId = req.params.commentId;
       Comment.findById(commentId, function(err, comment){
