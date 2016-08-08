@@ -38,21 +38,48 @@ module.exports = function(app){
       });
     },
 
-    // /**
-    //  * Search for pins matching the query
-    //  **/
-    // searchPins: function(req, res){
-    //   var Lat = req.query.Lat;
-    //   var Lng = req.query.Lng;
+    /**
+     * Update the content of a comment
+     **/
+    update: function(req, res){
+      var commentId = req.params.commentId;
+      Comment.findById(commentId, function(err, comment){
+        if (err){
+          return res.sendStatus(404);
+        }
+        if (req.user && req.user._id && comment.creator.equals(req.user._id)){
+          var content = req.body.content || '';
+          comment.content = content;
 
-    //   Pin.find({
-    //     $and: [
-    //       {'location.Lat': Lat},
-    //       {'location.Lng': Lng}
-    //     ]
-    //   }, function(err, pins){
-    //     return res.json(pins);
-    //   });
-    // }
+          comment.save(function(err, commentNewContent){
+            if (err){
+              return res.status(400).json(err);
+            }
+            return res.json(commentNewContent);
+          });
+        } else {
+          return res.json(comment);
+        }
+      });
+    },
+
+    delete: function(req, res){
+      var commentId = req.params.commentId;
+      Comment.findById(commentId, function(err, comment){
+        if (err){
+          return res.status(401).json(err);
+        }
+        if (req.user && req.user._id && comment.creator.equals(req.user._id)){
+          Comment.remove({_id: commentId}, function(err, result){
+            if (err){
+              return res.sendStatus(401);
+            }
+            return res.sendStatus(200);
+          });
+        } else {
+          return res.sendStatus(403);
+        }
+      });
+    }
   };
 };

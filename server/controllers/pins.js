@@ -70,26 +70,26 @@ module.exports = function(app){
       var pinId = req.params.pinId;
       var commentId = req.body.commentId;
       Pin.findById(pinId, function(err, pin){
-        if(err){
+        if (err){
           return res.status(404).json(err);
         }
-        if(!pin){
+        if (!pin){
           return res.sendStatus(404);
         }
 
         Comment.findById(commentId, function(err, comment){
-          if(err || !comment){
+          if (err || !comment){
             return res.sendStatus(400);
           }
 
-          if(pin.comments.indexOf(commentId) > -1){
+          if (pin.comments.indexOf(commentId) > -1){
             return res.json(pin);
           }
 
           pin.comments.push(commentId);
 
           pin.save(function(err, pinNewComment){
-            if(err){
+            if (err){
               return res.status(401).json(err);
             }
             return res.json(pinNewComment);
@@ -105,7 +105,7 @@ module.exports = function(app){
       var pinId = req.params.pinId;
       var commentId = req.params.commentId;
       Pin.findById(pinId, function(err, pin){
-        if(err || !pin){
+        if (err || !pin){
           return res.sendStatus(404);
         }
         Comment.findById(commentId, function(err, comment){
@@ -114,7 +114,7 @@ module.exports = function(app){
             pin.comments.pull(comment._id);
 
             pin.save(function(err, pinDeletedComment){
-              if(err || !pinDeletedComment){
+              if (err || !pinDeletedComment){
                 return res.sendStatus(400);
               };
               return res.json(pinDeletedComment);

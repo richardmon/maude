@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 
 var Comment = new Schema({
   creator:{
-    require: true,
+    required: true,
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
@@ -15,7 +15,7 @@ var Comment = new Schema({
   },
   content: String,
   replies: [{
-    require: true,
+    required: true,
     type: Schema.Types.ObjectId,
     ref: 'Comment'
   }]

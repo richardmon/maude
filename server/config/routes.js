@@ -54,12 +54,14 @@ module.exports = function(app){
   app.post('/pin/:pinId/comment', isLoggeIn, pin.addComment);
   app.get('/pin/:pinId', pin.getPin);
   app.get('/pins', pin.searchPins);
-  app.delete('/pin/:pinId/comment/:commentId', pin.deleteComment);
+  app.delete('/pin/:pinId/comment/:commentId', isLoggeIn, pin.deleteComment);
 
   //Comments
   var comment = app.controllers.comment;
   app.post('/comment', isLoggeIn, comment.create);
   app.get('/comment/:commentId', comment.get);
+  app.put('/comment/:commentId', isLoggeIn, comment.update);
+  app.delete('/comment/:commentId', isLoggeIn, comment.delete);
 
   app.get('/*', function(req, res){
     if (req.user) {

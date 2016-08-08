@@ -5,7 +5,6 @@ describe('Profile Me Controller', function(){
   var profileMeCtrl;
   var mockProfileService;
   var mockProfileMe;
-  var mockProfile;
   var rootScope;
   var user;
 
