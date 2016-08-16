@@ -77,6 +77,10 @@ describe('Pin Controller', function(){
         'image2',
         'image3',
         'image4'
+      ],
+      replies: [ // comments ids
+        '12345',
+        '23456'
       ]
     };
 
