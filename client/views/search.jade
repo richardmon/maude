@@ -8,6 +8,8 @@
             span.input-group-addon#search-input-bar
               i.fa.fa-search
             input.form-control#input-search-pins(ng-model="searchCtrl.input" placeholder="Where are you going?" aria-describedby="search-input-bar")
+  a.btn.btn-create(ng-show="user" ui-sref="pinCreate")
+    i.fa.fa-plus
 
   #map
 

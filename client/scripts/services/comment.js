@@ -6,7 +6,8 @@
       var resource = $resource('/comment/:commentId');
       var service = {
         getComment: getComment,
-        deleteComment: deleteComment
+        deleteComment: deleteComment,
+        createComment: createComment
       };
       return service;
 
@@ -18,6 +19,10 @@
 
       function deleteComment(commentId){
         return resource.delete({commentId: commentId}).$promise;
+      }
+
+      function createComment(comment){
+        return resource.save(comment).$promise;
       }
     });
 })();

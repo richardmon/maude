@@ -18,3 +18,20 @@
       .col-xs-3.col-sm-2.image-container(ng-repeat="image in pinCtrl.pin.images")
         a.thumbnail
           img(ng-src="{{image}}" ng-click="pinCtrl.getVisibleImage($index)")
+
+
+hr(style="padding-bottom: 3%;")
+#comment-section(ng-controller="CommentController as commentCtrl")
+  .container
+    form(ng-show="user" ng-submit="commentCtrl.addComment(newComment)")
+      .form-group
+        label.control-label(for="#input-comment") Leave your comment
+        textarea.form-control#input-comment(ng-required ng-model="newComment.content")
+
+      .form-group
+        button.btn.btn-default(type="submit") Comment
+  .container
+    div#comments(ng-repeat="comment in commentCtrl.comments" )
+      .panel.panel-default.col-12-sm
+        p.panel-body.
+         {{comment.content}}

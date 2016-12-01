@@ -13,9 +13,7 @@ var fakeUser = {
 
 describe('Comments', function(){
   var comment = {
-    creator: userId,
     content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    title: 'Title',
     replies: []
   };
 
@@ -26,7 +24,6 @@ describe('Comments', function(){
       .expect(200)
       .end(function(err, res){
         userId = res.body._id;
-        comment.creator = userId;
         done();
       });
   });
@@ -50,10 +47,9 @@ describe('Comments', function(){
         end(function(err, res){
           expect(res.body._id).to.exist;
           expect(res.body.content).to.be.equal(comment.content);
-          expect(res.body.title).to.be.equal(comment.title);
           expect(res.body.replies).to.be.instanceOf(Array);
           expect(res.body.replies).to.be.eql(res.body.replies);
-          expect(res.body.creator).to.be.equal(comment.creator);
+          expect(res.body.creator).to.be.equal(userId);
           done();
         });
     });
@@ -88,10 +84,9 @@ describe('Comments', function(){
         end(function(err, res){
           expect(res.body._id).to.exist;
           expect(res.body.content).to.be.equal(comment.content);
-          expect(res.body.title).to.be.equal(comment.title);
           expect(res.body.replies).to.be.instanceOf(Array);
           expect(res.body.replies).to.be.eql(res.body.replies);
-          expect(res.body.creator).to.be.equal(comment.creator);
+          expect(res.body.creator).to.be.equal(userId);
           done();
         });
     });

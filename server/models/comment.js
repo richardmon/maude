@@ -9,10 +9,6 @@ var Comment = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
-  title: {
-    type: String,
-    required: true
-  },
   content: String,
   replies: [{
     required: true,

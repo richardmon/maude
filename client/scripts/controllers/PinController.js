@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('maude')
-    .controller('PinController', function(pin, $stateParams, $state, $scope, $window){
+    .controller('PinController', function(pin, currentPin, $stateParams, $state, $scope, $window){
       var vm = this;
 
       // Pin Creation
@@ -78,9 +78,9 @@
         }
         if (vm.pinModel.images.length < vm.imageMaxLength &&
             !vm.pinModel.images.some(imageExist)){
-          vm.pinModel.images.push(image);
           vm.imageDuplicated = false;
           vm.fullImages = false;
+          vm.pinModel.images.push(image);
         } else if (vm.pinModel.images.some(imageExist)){
           vm.imageDuplicated = true;
         } else if (vm.pinModel.images.length >= vm.imageMaxLength){
@@ -88,7 +88,9 @@
         }
 
         function imageExist(img){
-          return angular.equals(img, image);
+          var imgJson = angular.toJson(img);
+          var imageJson = angular.toJson(image);
+          return angular.equals(imgJson, imageJson);
         }
       }
 
@@ -131,8 +133,15 @@
         if ($state.current.name === 'pin'){
           pin.getPin($stateParams.pinId)
             .then(function(pinResponse){
-              vm.pin = pinResponse;
+              currentPin.setCurrentPin(pinResponse);
+              vm.pin = currentPin.getCurrentPin();
             });
+
+          $scope.$watch(function(){
+            return currentPin.getCurrentPin();
+          }, function(newPin, oldPin){
+            vm.pin = newPin;
+          })
         }
       }
     });

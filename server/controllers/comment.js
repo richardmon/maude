@@ -6,11 +6,11 @@ module.exports = function(app){
   return {
     /**
      * Creates a new comment
+     * Requires Auth user
      **/
     create: function(req, res){
       var newComment = new Comment();
-      newComment.creator = req.body.creator;
-      newComment.title = req.body.title;
+      newComment.creator = req.user._id;
       newComment.content = req.body.content;
 
       var replies = req.body.replies || [];

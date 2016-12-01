@@ -41,6 +41,7 @@ describe('Pin Controller', function(){
   beforeEach(inject(function($q, $controller, $rootScope, $state, $stateParams){
     // mock pin
     pinModel = {
+      _id: '1a2b3c', // Pin ID
       title: 'TItle',
       content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt inculpa qui officia deserunt mollit anim id est laborum.',
       location: [{
@@ -53,6 +54,10 @@ describe('Pin Controller', function(){
         new Blob(),// image 2
         'image3',
         new Blob() // image 4
+      ],
+      comments: [
+        '12abcdd', // id comment 1
+        '34cdeff', // id comment 2
       ]
     };
     //mock user
@@ -78,7 +83,7 @@ describe('Pin Controller', function(){
         'image3',
         'image4'
       ],
-      replies: [ // comments ids
+      comments: [ // comments ids
         '12345',
         '23456'
       ]
@@ -275,6 +280,7 @@ describe('Pin Controller', function(){
       pinCtrl.addImagePinCreation(file2);
       pinCtrl.addImagePinCreation(file3);
 
+
       expect(pinCtrl.pinModel.images.length).to.be.equal(3);
 
       pinCtrl.removeImage(1);
@@ -347,6 +353,4 @@ describe('Pin Controller', function(){
       expect(pinCtrl.visibleImage).to.be.equal(pinResponse.images[2]);
     });
   });
-
-
 });

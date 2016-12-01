@@ -6,7 +6,6 @@ describe('Comment Service', function(){
   var commentResponse = {
     creator: '12345', // User id
     content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    title: 'Title',
     replies: []
   };
 
@@ -23,12 +22,25 @@ describe('Comment Service', function(){
   }));
 
   /**
-   * Init the service
+   * Initialize the service
    **/
   beforeEach(inject(function(_$httpBackend_, _comment_){
     httpBackend = _$httpBackend_;
     commentService = _comment_;
   }));;
+
+  xdescribe('Create Comment', function(){
+    var newComment = {content: '', replies: []};
+    angular.copy(commentResponse, newComment);
+    delete newComment.creator;
+
+    it('should create a pin if the proper content is given', function(){
+      httpBackend.whenPOST(URL).respond(201, commentResponse);
+      commentService.createComment(newComment).then(function(comment){
+        expect(comment).to.contain(newComment);
+      });
+    });
+  });
 
   describe('Get Comment', function(){
     it('should get the pin with the id', function(){
@@ -37,7 +49,6 @@ describe('Comment Service', function(){
       commentService.getComment(commentId).then(function(comment){
         expect(comment.creator).to.be.eql(commentResponse.creator);
         expect(comment.content).to.be.eql(commentResponse.content);
-        expect(comment.title).to.be.eql(comment.title);
         expect(comment.replies).to.be.eql(comment.replies);
       });
       httpBackend.flush();

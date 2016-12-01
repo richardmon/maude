@@ -3,11 +3,19 @@
 
   angular.module('maude')
   .factory('pin', function UserFactory($resource, Upload){
-    var resource = $resource('/pin/:pinId');
+    var resource = $resource('/pin/:pinId/');
+    var resourceComment = $resource('/pin/:pinId/comment/:commentId') 
+    // resource.add({
+    //   resource: 'comments',
+    //   url: '/pin/:pinId/comments/:commentId'
+    // });
+
     var service = {
       searchPins : searchPins,
       createPin : createPin,
-      getPin: getPin
+      getPin: getPin,
+      // Comments
+      addComment: addComment,
     };
 
     return service;
@@ -34,6 +42,16 @@
 
     function getPin(pinId){
       return resource.get({pinId: pinId}).$promise;
+    }
+
+    // Comments
+    /**
+     * Untested
+     **/
+    function addComment(pin, comment){
+      var obj = {};
+      angular.copy(comment, obj);
+      return resourceComment.save({pinId: pin._id}, {commentId: comment._id}).$promise;
     }
   });
 })();
