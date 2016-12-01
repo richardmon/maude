@@ -1,0 +1,54 @@
+.navbar-colored
+.container
+  form#creation-pin(novalidate name="pinCreationForm" ng-submit="pinCtrl.create(pinCreationForm.$valid, pinCtrl.pinModel)")
+
+    .form-group(ng-class="{'has-error': pinCreationForm.title.$invalid && pinCreationForm.$submitted}")
+        label.control-label(for="input-title-pin") Pin's title
+        input.form-control#input-title-pin(name="title" ng-model="pinCtrl.pinModel.title" required)
+        p.help-block(ng-show="pinCreationForm.title.$invalid && pinCreationForm.$submitted") A title for your pin is required
+
+    .form-group(ng-class="{'has-error': pinCreationForm.content.$invalid && pinCreationForm.$submitted}")
+      label.control-label(for="input-content-pin") Description
+      textarea#input-content-pin.form-control(name="content" ng-model="pinCtrl.pinModel.content" required ng-minlength="pinCtrl.contentMinLength")
+      p.help-block(ng-show="pinCreationForm.content.$error.required && pinCreationForm.$submitted") A description for your pin is required
+      p.help-block(ng-show="pinCreationForm.content.$error.minlength && pinCreationForm.$submitted") The descripton should have at least {{ pinCtrl.contentMinLength }} characters
+
+    .form-group(ng-class="{'has-error': !pinCtrl.pinModel.location.length && pinCreationForm.$submitted}")
+      label(for="insert-pin-location") Add Locations
+      .form-horizontal#insert-pin-location
+        .form-group
+            label.col-xs-2.control-label(for="input-location-pins") Search for location
+            .col-xs-8
+              input.form-control#input-location-pins(ng-model="pinCtrl.locationInput")
+              p.help-block(ng-show="!pinCtrl.pinModel.location.length && pinCreationForm.$submitted") You should add at least one location
+            button.btn.btn-default.col-xs-1(type="button" ng-click="pinCtrl.addLocationPinCreation()") add
+      .row
+        .col-xs-4
+          ul.list-group
+            li.list-group-item(ng-repeat="places in pinCtrl.pinModel.location")
+              | {{ places.name }}
+              i.fa.fa-times.delete-cross(ng-click="pinCtrl.removeLocation($index)")
+
+    .form-group(ng-class="{'has-error': (!pinCtrl.pinModel.images.length && pinCreationForm.$submitted ) || (pinCtrl.imageError())}")
+      label.control-label(for="insert-pin-images") Add image
+      .form-horizontal
+        .form-group
+          label.col-xs-2.control-label(for="input-image-pin") Search for local Image
+          .col-xs-8
+            .btn.btn-default.col-xs-3(ngf-select="pinCtrl.addImagePinCreation($file)" ng-model="image" ngf-pattern="'image/*'" ng-accept="'image/*'") Load Image
+            .col-xs-offset-4(ng-show="image.name") {{image.name}}
+        .row
+          .col-xs-offset-1
+            p.help-block(ng-show="!pinCtrl.pinModel.images.length && pinCreationForm.$submitted") You should add at least one image
+            p.help-block(ng-show="pinCtrl.imageDuplicated") The image is duplicated
+            p.help-block(ng-show="pinCtrl.fullImages") you can only upload {{pinCtrl.imageMaxLength}} images
+
+        .row
+          .col-xs-4
+            ul.list-group
+              li.list-group-item(ng-repeat="image in pinCtrl.pinModel.images")
+                | {{ image.name }}
+                i.fa.fa-times.delete-cross(ng-click="pinCtrl.removeImage($index)")
+
+    .col-xs-offset-11
+      button.btn.btn-default.post-btn(type="submit") Post

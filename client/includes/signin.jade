@@ -1,0 +1,47 @@
+// modal sign in
+.modal#signin-modal(tab-index="-1" role="dialog" ng-controller="LoginController as loginCtrl")
+  .modal-dialog.modal-sm
+    .modal-content
+      .modal-body.signin-body
+        .row
+          .col-xs-12.text-center
+            button.btn.facebook-modal-btn(ng-click="loginCtrl.authWithFacebook()")
+              i.fa.fa-facebook-official
+              span Facebook
+        .row
+          .col-xs-12.text-center.top-buffer
+            a(href="/auth/twitter")
+              button.btn.twitter-modal-btn
+                i.fa.fa-twitter-square
+                span Twitter
+
+        .modal-or-separator
+          span or
+          hr
+
+        .row
+          .col-sm-12.text-center.top-buffer
+            .alert-danger(ng-show="loginCtrl.hasErrors()")
+              .space-for-alert
+                div(ng-repeat="error in loginCtrl.errors")
+                  | {{error.message}}
+            form(novalidate name="signinForm" ng-submit="loginCtrl.loginLocal(signinForm.$valid)")
+              .form-group(ng-class="{'has-error': signinForm.email.$invalid && (!signinForm.email.$pristine || signinForm.$submitted)}")
+                label.control-label(for="email-signin") Email address
+                input.form-control#email-signin(type="email" name="email" ng-model="siginin.email" ng-required="true" ng-model-options="{updateOn: 'blur'}")
+                p.help-block(ng-show="signinForm.email.$error.required && (!signinForm.email.$pristine || signinForm.$submitted)") Enter your Email
+                p.help-block(ng-show="signinForm.email.$error.email && !signinForm.email.$pristine") Invalid Email
+
+              .form-group(ng-class="{'has-error': signinForm.password.$invalid && signinForm.$submitted}")
+                label.control-label(for="password-signin") Password
+                input.form-control#password-signin(type="password" name="password" ng-model="siginin.password" ng-required="true" ng-model-options="{updateOn: 'blur'}")
+                p.help-block(ng-show="signinForm.password.$invalid && signinForm.$submitted") Enter your password
+
+              button.btn.modal-btn(type="submit") Sign In
+
+        hr
+
+        .row
+          .col-sm-12
+            | Don’t have an account? 
+            a(href="#" data-dismiss="modal" data-toggle="modal" data-target="#signup-modal") Sign up

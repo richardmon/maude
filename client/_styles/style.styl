@@ -1,0 +1,422 @@
+@require 'variables'
+
+html, body
+  height 100%
+  margin 0px
+  font-family font-merriweather
+  z-index 1
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6
+  font-family font-open-sans
+
+a
+  outline none !important
+
+//Navigation
+
+.navbar-default
+  //Purple Theme
+  background-color white
+  font-family font-open-sans
+  transition all 0.35s ease
+  border-color transparent
+
+  .navbar-nav>li
+    .search
+      span
+        border 1px solid rgba(purple, 0.7)
+        padding 2px 20px
+        border-radius 20px
+        border-color rgba(purple, 0.7)
+
+  .navbar-nav>li>a
+    color rgba(purple, 0.7)
+    transition 400ms
+
+    &:hover,
+    &:focus,
+    &:active
+      color purple
+
+  .navbar-header .navbar-brand
+    font-weight 700
+    color rgba(purple, 0.7)
+    transition 400ms
+    text-transform uppercase
+    font-size 20px
+
+    &:hover,
+    &:focus,
+    &:active
+      color purple
+
+  .navbar-toggle
+    border 0px solid white
+    color rgba(purple, 0.7)
+    &:hover,
+    &:focus,
+    &:active
+      color purple
+
+    &:hover
+      background white
+      text-decoration none
+
+
+  @media (min-width: 768px)
+    //Transparent theme
+    background-color transparent
+
+    .navbar-nav>li
+      .search
+        span
+          border-color light-white
+
+    .navbar-nav>li>a
+      color light-white
+      transition 400ms
+
+      &:hover,
+      &:focus,
+      &:active
+        color white
+
+    .navbar-header .navbar-brand
+      font-weight 700
+      color light-white
+      transition 400ms
+      text-transform uppercase
+      font-size 20px
+
+      &:hover,
+      &:focus,
+      &:active
+        color white
+
+    &.affix
+      background-color white
+
+      .navbar-nav>li
+        .search
+          span
+            border-color rgba(purple, 0.7)
+
+      .navbar-nav>li>a
+        color rgba(purple, 0.7)
+        transition 400ms
+
+        &:hover,
+        &:focus,
+        &:active
+          color purple
+
+      .navbar-header .navbar-brand
+        color rgba(purple, 0.7)
+
+        &:hover,
+        &:focus,
+        &:active
+          color purple
+
+
+.navbar-colored
+  padding-top 50px
+  background-color header-color
+
+//Modal
+.modal
+  font-family font-open-sans
+
+  .top-buffer
+    margin-top 10px
+
+  .alert-danger
+    border-radius 4px
+    .space-for-alert
+      padding 8px 0px
+
+  .modal-or-separator
+    text-align center
+    margin-top 10px
+
+    span
+      background-color white
+      padding 0 5px
+
+    hr
+      margin-top -10px
+
+  i
+    margin-right 8px
+
+  button
+    color white
+    width 100%
+    height 100%
+    min-height 50px
+
+    &:hover,
+    &:focus,
+    &:active
+      color white
+
+  .modal-btn
+    background-color purple
+
+  .facebook-modal-btn
+    background-color facebook-color
+    transition 0.2s all ease
+    &:hover
+      background-color facebook-color-hover
+
+  .twitter-modal-btn
+    background-color twitter-color
+
+
+.views
+  min-height 100%
+  width 100%
+
+//Header
+header
+  position relative
+
+  height 100vh
+  width 100%
+  background-image url(../images/header.jpg)
+  background-repeat no-repeat
+  background-attachment fixed
+  background-size cover
+  overflow hidden
+
+  .header-content
+    position absolute
+    top 45%
+    text-align center
+    width 100%
+    margin-top - header-font-size
+
+    h1
+      color white
+      font-weight 700
+      font-size header-font-size
+      span
+        background rgba(0,0,0,.4)
+        margin-right auto
+        margin-left auto
+        max-width 1000px
+        padding 0px 18px
+
+    h2
+      color white
+      font-size 30px
+      letter-spacing 2px
+
+    a
+      color white !important
+      font-family font-open-sans
+
+      &:hover,
+      &:focus,
+      &:active
+        color white !important
+
+
+      .home-search-button
+        font-size 16px
+        padding 6px 40px
+        border-radius 2px
+        margin-top 50px
+        background-color rgba(255,255,255,0.4)
+        color white
+
+        &:hover
+          background rgba(0,0,0,.5)
+
+  @media (max-width: 768px)
+    height: 90vh
+
+//Sections
+section
+  padding 100px 0
+
+//About
+#about
+  background-color background-about
+
+  h2
+    font-size 40px
+    text-align center
+
+
+  hr
+    max-width 50px
+    border-width 3px
+    border-color purple
+
+
+//Download
+#download
+  background-color black
+  color white
+
+// Search
+.search-input
+  background-color header-color
+  padding-top 10px
+  padding-bottom 60px
+  margin-bottom 20px
+
+  @media (max-width: 768px)
+    padding-left 20px
+    padding-right 20px
+    padding-top 30px
+
+  #input-search-pins
+    border-left 0px
+
+
+  .input-group-addon
+    background-color white
+
+.result-display-pins
+  margin-top 10px
+  .panel
+    padding 0px 40px
+    transition 0.3s
+
+    &:hover
+      box-shadow 0 1px 1px rgba(0,0,0,.8)
+
+    p, h2
+      word-wrap break-word
+  a
+    &:hover,
+    &:focus,
+    &:active
+      text-decoration none
+
+    .panel
+      color black
+
+#title-panel
+  padding-bottom 10px
+  h4
+    display inline-block
+
+  img
+    height 35px
+    width 35px
+    margin-left 20px
+    margin-right 20px
+
+
+.background-pink
+  background-color background-pink
+  min-height 100vh
+
+// Pin
+
+.btn-create
+  font-family font-open-sans
+  font-size 1.5em
+  margin-left 90%
+  margin-right auto
+  margin-top -60px
+  color: light-white
+  border-radius 50%
+  background-color dark-purple 
+
+  &:hover
+    color white
+    background-color light-purple
+
+  @media (max-width: 768px)
+    margin-left 80%
+
+#description-pin
+
+  img
+    height auto
+    width auto
+
+  .avatar
+    height 100px
+    width 100px
+
+  .pin-content
+    word-wrap break-word
+
+  .image-container
+    min-width 100px
+
+    @media (min-width: 768px)
+      min-width 200px
+
+  .thumbnail
+    border-radius 2px
+    transition all 0.3s
+
+    &:hover
+      transform scale(1.1)
+
+#creation-pin
+  margin-top 50px
+
+  .delete-cross
+    float right
+    cursor pointer
+    cursor hand
+
+
+  .post-btn
+    margin-top 10px
+    margin-bottom 30px
+
+  #image-name
+    word-wrap break-word
+
+
+footer
+  background-color dark-purple 
+  color white
+  font-family font-open-sans
+
+
+  .footer-content
+    padding-top 30px
+
+  .information
+    display block
+
+  .copyright
+    padding-top 20px
+    padding-bottom 20px
+    font-size 10px
+
+
+// Extras
+// -- Highlight Color Customization
+::-moz-selection
+    color white
+    text-shadow none
+    background rgba(0,0,0,.4)
+
+::selection
+    color white
+    text-shadow none
+    background rgba(0,0,0,.4)
+
+
+img::selection
+    color white
+    background transparent
+
+img::-moz-selection
+    color white
+    background transparent

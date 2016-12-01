@@ -1,0 +1,8 @@
+Para ejecutar esta apicacion se debe tener corriendo a mongodb,
+luego se debe correr el comando npm install
+junto con bower install.
+
+Ademas se necesita que grunt este instalado para poder correr grunt build
+que generara los archivos html, css, y js.
+
+Si todo sale bien solo queda correr la aplicacion mediante el comando npm start

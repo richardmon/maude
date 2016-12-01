@@ -1,0 +1,6 @@
+client/components/**
+client/scripts/functions.js
+client/scripts/facebook.js
+
+.tmp/**
+dist/**

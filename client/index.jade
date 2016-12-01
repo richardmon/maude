@@ -1,0 +1,101 @@
+doctype html
+head
+  meta(name='viewport', content='width=device-width, initial-scale=1.0')
+
+
+  link(href="http://fonts.googleapis.com/css?family=Merriweather&#8217" rel="stylesheet" type="text/css")
+  link(href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" type="text/css")
+  // build:css css/vendor.css
+  link( rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.min.css" )
+  link(rel="stylesheet" href="components/components-font-awesome/css/font-awesome.min.css")
+  //endbuild
+
+  // build:css css/style.css
+  link(rel="stylesheet" href="styles/style.css")
+  //endbuild
+
+
+body(ng-app="maude")
+
+  nav.navbar.navbar-default.navbar-fixed-top
+    .container-fluid
+      .navbar-header
+        a.navbar-brand(ui-sref="home") App
+        a.navbar-toggle(href="#download") Download
+      ul.collapse.navbar-collapse.navbar-nav.nav.navbar-right
+        li(ng-controller="SearchButtonController as searchBtnCtrl")
+          a.search(ui-sref="search" ng-show="searchBtnCtrl.visible()")
+            span
+              i.fa.fa-search
+              |  Search
+        li
+          a(href data-toggle="modal" data-target="#signin-modal" ng-show="!user") Sign In
+        li
+          a(href data-toggle="modal" data-target="#signup-modal" ng-show="!user") Sign Up
+        li(ng-show="user" ng-controller="LogoutController as logoutCtrl")
+          a(href ng-click="logoutCtrl.logoutUser()") Logout
+
+  include ./includes/signin.jade
+  include ./includes/signup.jade
+
+  .views(ui-view)
+
+  div(ng-controller="ProfileMeController")
+  footer
+    .container.footer-content
+      .row
+        .col-sm-4.text-center Email
+          span.information email@domain.com
+        .col-sm-4.text-center Phone
+          span.information 123-456-891
+        .col-sm-4.text-center Address
+          span.information 1ddr3s
+
+      hr
+
+      .row
+        .col-lg-8.col-lg-offset-2.text-center
+          h3 Follow us
+      .row
+        .col-xs-2.col-xs-offset-3.text-center
+          i.fa.fa-2x.fa-facebook-official
+        .col-xs-2.text-center
+          i.fa.fa-2x.fa-twitter
+        .col-xs-2.text-center
+          i.fa.fa-2x.fa-google-plus-square
+
+      .row
+        .col-sm-4.col-sm-offset-4.text-center.copyright Richard Montoya ©
+
+// build:js js/vendor.js
+script( src="components/jquery/dist/jquery.min.js" )
+script( src="components/bootstrap/dist/js/bootstrap.min.js" )
+script( src="components/angular/angular.min.js")
+script( src="components/angular-resource/angular-resource.min.js" )
+script( src="components/angular-ui-router/release/angular-ui-router.min.js" )
+script( src="components/ng-file-upload/ng-file-upload.min.js" )
+//endbuild
+
+//build:js js/script.js
+script( src="scripts/functions.js" )
+script( src="scripts/facebook.js" )
+script( src="scripts/app.js" )
+script( src="scripts/routes.js" )
+script( src="scripts/services/auth.js" )
+script( src="scripts/services/user.js" )
+script( src="scripts/services/session.js" )
+script( src="scripts/services/config.js" )
+script( src="scripts/services/pin.js" )
+script( src="scripts/services/currentPin.js" )
+script( src="scripts/services/profile.js" )
+script( src="scripts/services/comment.js" )
+script( src="scripts/controllers/SignupController.js" )
+script( src="scripts/controllers/LoginController.js" )
+script( src="scripts/controllers/LogoutController.js" )
+script( src="scripts/controllers/SearchController.js" )
+script( src="scripts/controllers/PinController.js" )
+script( src="scripts/controllers/SearchButtonController.js" )
+script( src="scripts/controllers/CommentController.js" )
+script( src="scripts/controllers/profile/ProfileMeController.js" )
+//endbuild
+script( src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCoJDaCSGHU8asCLZWfJ-HKQ13AZbRqH8w&libraries=places" )

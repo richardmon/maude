@@ -1,0 +1,30 @@
+{
+  "name": "app-client",
+  "authors": [
+    "Richard <losmontoya93@gmail.com>"
+  ],
+  "description": "client part",
+  "main": "",
+  "moduleType": [],
+  "license": "Custom",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "client/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.6",
+    "jquery": "~2.1.4",
+    "components-font-awesome": "~4.5.0",
+    "angular": "~1.4.8",
+    "angular-resource": "~1.4.8",
+    "angular-ui-router": "~0.2.15",
+    "angular-mocks": "~1.4.9",
+    "ng-file-upload": "~12.0.1"
+  }
+}

@@ -1,0 +1,11 @@
+**.swp
+**.swo
+dist/
+.tmp/
+node_modules/
+client/components/
+client/index.html
+client/styles/style.css
+client/views/**/*.html
+client/views/*.html
+client/uploads/**

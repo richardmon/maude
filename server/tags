@@ -1,0 +1,64 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/48e382b/
+Comment	models/comment.js	/^var Comment = new Schema({$/;"	v
+Comment	models/index.js	/^  Comment: require('.\/comment')$/;"	p	class:module.exports
+Pin	models/index.js	/^  Pin : require('.\/pin'),$/;"	p	class:module.exports
+Pin	models/pin.js	/^var Pin = new Schema({$/;"	v
+Schema	models/comment.js	/^var Schema = mongoose.Schema;$/;"	v
+Schema	models/pin.js	/^var Schema = mongoose.Schema;$/;"	v
+Schema	models/user.js	/^var Schema = mongoose.Schema;$/;"	v
+User	models/index.js	/^  User: require('.\/user'),$/;"	p	class:module.exports
+User	models/user.js	/^var User = new Schema({$/;"	v
+callbackURL	config/auth.js	/^    callbackURL    : 'http:\/\/127.0.0.1:3000\/auth\/twitter\/callback'$/;"	p	class:module.exports.twitterAuth
+callbackURL	config/auth.js	/^    callbackURL  : 'http:\/\/localhost:3000\/auth\/facebook\/callback'$/;"	p	class:module.exports.facebookAuth
+clientID	config/auth.js	/^    clientID     : '904326619684001',$/;"	p	class:module.exports.facebookAuth
+clientSecret	config/auth.js	/^    clientSecret : 'ce170b69bff5cb1acc02df02eebe5e78',$/;"	p	class:module.exports.facebookAuth
+comment	config/routes.js	/^  var comment = app.controllers.comment;$/;"	v
+config	config/database.js	/^var config = require('.\/index');$/;"	v
+consumerKey	config/auth.js	/^    consumerKey    : 'SdNJROQHYKIB27M2yWLapYoqM',$/;"	p	class:module.exports.twitterAuth
+consumerSecret	config/auth.js	/^    consumerSecret : 'D9147pU66xUGtEJ7MsclH8AXOp2wNQAlZa55FRj9jtxNbNQFBR',$/;"	p	class:module.exports.twitterAuth
+crypto	models/user.js	/^var crypto = require('crypto');$/;"	v
+db	config/database.js	/^var mongoOptions = {db: {safe : true}};$/;"	c	class:mongoOptions
+db	config/index.js	/^    db:   process.env.MONGOLAB_URI ||$/;"	p	class:env.development
+db	config/index.js	/^    db:   process.env.MONGOLAB_URI ||$/;"	p	class:env.production
+db	config/index.js	/^    db:   process.env.MONGOLAB_URI ||$/;"	p	class:env.test
+development	config/index.js	/^  development: {$/;"	c	class:env
+encryptPassword	models/user.js	/^User.methods.encryptPassword = function(passwd){$/;"	f	function:User.methods
+env	config/index.js	/^var env = {$/;"	c
+exports	config/auth.js	/^module.exports = {$/;"	c	class:module
+exports	config/pass.js	/^module.exports = function(app){$/;"	f	function:module
+exports	config/routes.js	/^module.exports = function(app){$/;"	f	function:module
+exports	controllers/comment.js	/^module.exports = function(app){$/;"	f	function:module
+exports	controllers/index.js	/^module.exports = function(app){$/;"	f	function:module
+exports	controllers/pins.js	/^module.exports = function(app){$/;"	f	function:module
+exports	controllers/profile.js	/^module.exports = function(app){$/;"	f	function:module
+exports	controllers/session.js	/^module.exports = function(app) {$/;"	f	function:module
+exports	controllers/users.js	/^module.exports = function(app) {$/;"	f	function:module
+exports	models/index.js	/^module.exports = {$/;"	c	class:module
+facebookAuth	config/auth.js	/^  facebookAuth : {$/;"	c	class:module.exports
+isLoggeIn	config/routes.js	/^function isLoggeIn(req, res, next){$/;"	f
+makeSalt	models/user.js	/^User.methods.makeSalt = function(){$/;"	f	function:User.methods
+mongoOptions	config/database.js	/^var mongoOptions = {db: {safe : true}};$/;"	c
+mongoose	config/database.js	/^var mongoose = require('mongoose');$/;"	v
+mongoose	models/comment.js	/^var mongoose = require('mongoose');$/;"	v
+mongoose	models/pin.js	/^var mongoose = require('mongoose');$/;"	v
+mongoose	models/user.js	/^var mongoose = require('mongoose');$/;"	v
+notNull	models/user.js	/^var notNull = function(value){$/;"	f
+pin	config/routes.js	/^  var pin = app.controllers.pin;$/;"	v
+port	config/index.js	/^    port: process.env.PORT || 3000,$/;"	p	class:env.development
+port	config/index.js	/^    port: process.env.PORT || 3002,$/;"	p	class:env.test
+port	config/index.js	/^    port: process.env.PORT || 80,$/;"	p	class:env.production
+production	config/index.js	/^  production: {$/;"	c	class:env
+profile	config/routes.js	/^  var profile = app.controllers.profile;$/;"	v
+safe	config/database.js	/^var mongoOptions = {db: {safe : true}};$/;"	p	class:mongoOptions.db
+seed	config/database.js	/^exports.seed = function(app){$/;"	f	function:exports
+session	config/routes.js	/^  var session = app.controllers.session;$/;"	v
+test	config/index.js	/^  test: {$/;"	c	class:env
+twitterAuth	config/auth.js	/^  twitterAuth : {$/;"	c	class:module.exports
+upload	config/routes.js	/^  var upload = multer({storage: storage});$/;"	v
+user	config/routes.js	/^  var user = app.controllers.user;$/;"	v
+validPassword	models/user.js	/^User.methods.validPassword = function(passwd){$/;"	f	function:User.methods
