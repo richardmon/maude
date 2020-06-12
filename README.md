@@ -1,4 +1,4 @@
-# Grunt + Jade + Stylus
+# Node.js + Angular.js + Grunt + Jade + Stylus
 ---
 Small page built making use of grunt, angularjs, jade and stylus
 
