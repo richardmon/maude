@@ -143,7 +143,8 @@ module.exports = function(grunt){
 
 
   //Tasks
-  grunt.registerTask('default', ['stylus', 'postcss', 'jade', 'watch']);
+  grunt.registerTask('default', ['stylus', 'postcss', 'jade']);
+  grunt.registerTask('dev', ['stylus', 'postcss', 'jade', 'watch']);
   grunt.registerTask('test', ['mochaTest', 'karma']);
   grunt.registerTask('test-server', ['mochaTest']);
   grunt.registerTask('test-client', ['karma']);
